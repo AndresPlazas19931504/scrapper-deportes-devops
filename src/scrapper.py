@@ -144,3 +144,26 @@ if __name__ == "__main__":
 
     except Exception as e:
         print(f"Ha ocurrido un error durante la ejecución del scraper: {e}")
+
+# Dentro de src/scraper.py, al final
+def save_dataframe_to_csv(df: pd.DataFrame, filepath: str):
+    """Guarda un DataFrame de pandas en un archivo CSV."""
+    try:
+        os.makedirs(os.path.dirname(filepath), exist_ok=True) # Asegura que el directorio exista
+        df.to_csv(filepath, index=False)
+        print(f"Datos guardados exitosamente en {filepath}")
+    except Exception as e:
+        print(f"Error al guardar los datos en CSV: {e}")
+        raise # Vuelve a lanzar la excepción
+
+# Y en tu `if __name__ == "__main__":` de src/scraper.py, úsala:
+if __name__ == "__main__":
+    PREMIER_LEAGUE_URL = "https://www.espn.com.co/futbol/posiciones/_/liga/eng.1"
+    output_path = os.path.join("data", "premier_league_standings.csv") # O donde quieras que se guarde
+    try:
+        final_df = run_scraper(PREMIER_LEAGUE_URL)
+        print("Scraping completado. DataFrame obtenido:")
+        print(final_df.head())
+        save_dataframe_to_csv(final_df, output_path)
+    except Exception as e:
+        print(f"Ha ocurrido un error durante la ejecución del scraper: {e}")
