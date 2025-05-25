@@ -126,7 +126,6 @@ def test_fetch_premier_league_html_connection_error():
             fetch_premier_league_html(url)
 
 # --- Pruebas para parse_premier_league_standings ---
-
 def test_parse_premier_league_standings_correct_extraction():
     """Verifica que parse_premier_league_standings extraiga los datos correctos del HTML mock."""
     df = parse_premier_league_standings(MOCK_ESPN_PREMIER_LEAGUE_HTML)
@@ -161,16 +160,16 @@ def test_parse_premier_league_standings_correct_extraction():
     assert df.loc[1, 'Equipo'] == 'Arsenal'
     assert df.loc[1, 'Puntos'] == 84 # Solo un ejemplo, verifica más si quieres
 
+    # AÑADE LA DEFINICIÓN DE num_cols AQUÍ, ANTES DEL BUCLE
+    num_cols = [
+        'Posicion', 'Número de partidos jugados', 'El número de partidos ganados',
+        'Empate', 'Derrotas', 'Goles a favor', 'Goles en contra',
+        'Diferencia de puntos', 'Puntos'
+    ]
+    
     # Verifica los tipos de datos de las columnas numéricas
-    for col in num_cols: # Asumiendo num_cols está definido globalmente en scraper.py o aquí.
-        # Definir num_cols localmente si no está importado de scraper.py:
-        num_cols = [
-            'Posicion', 'Número de partidos jugados', 'El número de partidos ganados',
-            'Empate', 'Derrotas', 'Goles a favor', 'Goles en contra',
-            'Diferencia de puntos', 'Puntos'
-        ]
+    for col in num_cols:
         assert pd.api.types.is_numeric_dtype(df[col]), f"Columna {col} no es numérica"
-
 
 def test_parse_premier_league_standings_empty_html():
     """Verifica que la función lance un ValueError si no se encuentra la primera tabla."""
