@@ -106,7 +106,6 @@ def parse_premier_league_standings(html_content: bytes) -> pd.DataFrame:
         else:
             print(f"DEBUG: Fila de equipo ignorada (posición no numérica): {row.prettify()}", file=sys.stderr)
 
-
     # Extraer datos de la segunda tabla
     stats_data = []
     # Busca todas las filas de la tabla de estadísticas.
@@ -117,26 +116,36 @@ def parse_premier_league_standings(html_content: bytes) -> pd.DataFrame:
         print("ADVERTENCIA: No se encontraron filas en la segunda tabla de estadísticas.", file=sys.stderr)
 
     for row in rows2:
-        # CORRECCIÓN CLAVE: Buscar directamente 'td' con la clase 'stat-cell'.
-        cells = row.find_all('td', class_='stat-cell')
+        # CORRECCIÓN CLAVE AQUÍ:
+        # Primero encuentra todos los <td> que tengan la clase 'Table__TD'
+        # Luego, dentro de cada <td>, encuentra el <span> con la clase 'stat-cell'
+        td_cells = row.find_all('td', class_='Table__TD')
         
-        if len(cells) == 8: # Asegura que haya 8 celdas de estadísticas
+        # Extraer el texto de los span con 'stat-cell' dentro de cada td
+        cells_text = []
+        for td in td_cells:
+            stat_span = td.find('span', class_='stat-cell')
+            if stat_span:
+                cells_text.append(stat_span.text.strip())
+
+        # Asegúrate de que tengamos exactamente 8 elementos de texto para las estadísticas
+        if len(cells_text) == 8: 
             try:
                 stats_data.append({
-                    'Número de partidos jugados': int(cells[0].text.strip()),
-                    'El número de partidos ganados': int(cells[1].text.strip()),
-                    'Empate': int(cells[2].text.strip()),
-                    'Derrotas': int(cells[3].text.strip()),
-                    'Goles a favor': int(cells[4].text.strip()),
-                    'Goles en contra': int(cells[5].text.strip()),
-                    'Diferencia de puntos': int(cells[6].text.strip()),
-                    'Puntos': int(cells[7].text.strip())
+                    'Número de partidos jugados': int(cells_text[0]),
+                    'El número de partidos ganados': int(cells_text[1]),
+                    'Empate': int(cells_text[2]),
+                    'Derrotas': int(cells_text[3]),
+                    'Goles a favor': int(cells_text[4]),
+                    'Goles en contra': int(cells_text[5]),
+                    'Diferencia de puntos': int(cells_text[6].replace('+', '').replace('-', '')), # Limpiar signos
+                    'Puntos': int(cells_text[7])
                 })
             except ValueError as ve:
                 print(f"ADVERTENCIA: Error al convertir estadísticas a entero en fila: {row.prettify()} - Error: {ve}", file=sys.stderr)
         else:
-            # Mensaje de depuración para ver por qué algunas filas no se procesan
-            print(f"DEBUG: Fila de estadísticas ignorada (no 8 celdas 'stat-cell' o clases incorrectas): {row.prettify()}", file=sys.stderr)
+            # Mensaje de depuración si no se encuentran 8 celdas de estadísticas o si no hay texto
+            print(f"DEBUG: Fila de estadísticas ignorada (no 8 elementos de texto stat-cell): {row.prettify()}", file=sys.stderr)
 
     # Verifica que ambas listas tengan el mismo número de elementos para poder unirlos.
     if len(teams_data) != len(stats_data):
