@@ -73,7 +73,7 @@ MOCK_ESPN_PREMIER_LEAGUE_HTML = b"""
                     <td class="stat-cell">59</td>
                     <td class="stat-cell">84</td>
                 </tr>
-                 <tr class="Table__TR Table__TR--sm Table__even" data-idx="2">
+                 <tr class="Table__TR Table__TR--sm Table__even" data-idx="2">  <-- ¡AÑADE ESTA FILA!
                     <td class="stat-cell">38</td>
                     <td class="stat-cell">25</td>
                     <td class="stat-cell">10</td>
