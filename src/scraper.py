@@ -78,31 +78,31 @@ def parse_premier_league_standings(html_content: bytes) -> pd.DataFrame:
     if not second_table:
         raise ValueError("No se encontró la segunda tabla de posiciones (estadísticas) en el HTML.")
 
-    # Extraer datos de la primera tabla
+    # Extraer datos de la primera tabla (esta parte ya funciona bien)
     teams_data = []
-    # Busca todas las filas de la tabla principal
-    rows1 = first_table.find('tbody').find_all('tr', class_='Table__TR')
+    rows1 = first_table.find('tbody').find_all('tr', class_='Table__TR') # También acepta múltiples clases
     for row in rows1:
-        # Extrae la posición del equipo
         position = row.find('span', class_='team-position ml2 pr3').text.strip()
-        # Extrae el nombre completo del equipo (visible en desktop)
         full_name = row.find('span', class_='hide-mobile').text.strip()
-        # Extrae la abreviatura del equipo (visible en móvil)
         abbreviation = row.find('span', class_='dn show-mobile').text.strip()
         
         teams_data.append({
-            'Posicion': int(position), # Convertir a entero
+            'Posicion': int(position),
             'Abreviatura': abbreviation,
             'Equipo': full_name
         })
-
+		
     # Extraer datos de la segunda tabla
     stats_data = []
-    # Busca todas las filas de la tabla de estadísticas
-    rows2 = second_table.find('tbody').find_all('tr', class_='Table__TR')
+    rows2 = second_table.find('tbody').find_all('tr', class_='Table__TR') # También acepta múltiples clases
     for row in rows2:
-        # Obtiene todas las celdas de estadísticas
-        cells = row.find_all('td', class_='stat-cell')
+        # CORRECCIÓN CLAVE AQUÍ: Buscar 'td' con la clase 'stat-cell'
+        cells = row.find_all('td', class_='stat-cell') 
+        
+        # OJO: Si la clase 'stat-cell' está en un SPAN dentro del TD, y tú quieres el texto del TD,
+        # asegúrate de extraerlo correctamente. El `.text.strip()` aplicado a `cell` (que ahora será el td)
+        # extraerá todo el texto dentro de ese td, incluyendo el del span.
+        
         if len(cells) == 8: # Asegura que haya 8 celdas de estadísticas
             stats_data.append({
                 'Número de partidos jugados': int(cells[0].text.strip()),
@@ -114,7 +114,6 @@ def parse_premier_league_standings(html_content: bytes) -> pd.DataFrame:
                 'Diferencia de puntos': int(cells[6].text.strip()),
                 'Puntos': int(cells[7].text.strip())
             })
-
     # Verifica que ambas listas tengan el mismo número de elementos para poder unirlos.
     if len(teams_data) != len(stats_data):
         print(f"ADVERTENCIA: Número de equipos y estadísticas no coinciden. Equipos: {len(teams_data)}, Estadísticas: {len(stats_data)}", file=sys.stderr)
