@@ -27,7 +27,7 @@ def fetch_premier_league_html(url: str) -> bytes:
         requests.exceptions.RequestException: Si la petición falla (ej. error HTTP, error de conexión).
     """
     try:
-        # Realiza la petición GET con los headers definidos
+        # Realiza la petición GET con los headers definidos y un timeout
         response = requests.get(url, headers=HEADERS, timeout=10)
         # Lanza una excepción para códigos de estado HTTP erróneos (4xx o 5xx)
         response.raise_for_status()
@@ -78,46 +78,69 @@ def parse_premier_league_standings(html_content: bytes) -> pd.DataFrame:
     if not second_table:
         raise ValueError("No se encontró la segunda tabla de posiciones (estadísticas) en el HTML.")
 
-    # Extraer datos de la primera tabla (esta parte ya funciona bien)
+    # Extraer datos de la primera tabla
     teams_data = []
-    rows1 = first_table.find('tbody').find_all('tr', class_='Table__TR') # También acepta múltiples clases
+    # Busca todas las filas de la tabla principal. Asegúrate de que las clases sean correctas.
+    rows1 = first_table.find('tbody').find_all('tr', class_=['Table__TR', 'Table__TR--sm', 'Table__even', 'filled'])
+    
+    if not rows1:
+        print("ADVERTENCIA: No se encontraron filas en la primera tabla de equipos.", file=sys.stderr)
+
     for row in rows1:
-        position = row.find('span', class_='team-position ml2 pr3').text.strip()
-        full_name = row.find('span', class_='hide-mobile').text.strip()
-        abbreviation = row.find('span', class_='dn show-mobile').text.strip()
+        position_span = row.find('span', class_='team-position ml2 pr3')
+        full_name_span = row.find('span', class_='hide-mobile')
+        abbreviation_span = row.find('span', class_='dn show-mobile')
+
+        # Asegúrate de que los elementos existan antes de acceder a .text
+        position = position_span.text.strip() if position_span else ''
+        full_name = full_name_span.text.strip() if full_name_span else ''
+        abbreviation = abbreviation_span.text.strip() if abbreviation_span else ''
         
-        teams_data.append({
-            'Posicion': int(position),
-            'Abreviatura': abbreviation,
-            'Equipo': full_name
-        })
-		
+        # Opcional: solo añadir si la posición es válida
+        if position.isdigit(): # Para asegurar que solo se añaden filas de equipo válidas
+            teams_data.append({
+                'Posicion': int(position),
+                'Abreviatura': abbreviation,
+                'Equipo': full_name
+            })
+        else:
+            print(f"DEBUG: Fila de equipo ignorada (posición no numérica): {row.prettify()}", file=sys.stderr)
+
+
     # Extraer datos de la segunda tabla
     stats_data = []
-    rows2 = second_table.find('tbody').find_all('tr', class_='Table__TR') # También acepta múltiples clases
+    # Busca todas las filas de la tabla de estadísticas.
+    # Usamos una lista de clases para hacer el selector más flexible ante variaciones.
+    rows2 = second_table.find('tbody').find_all('tr', class_=['Table__TR', 'Table__TR--sm', 'Table__even', 'filled'])
+    
+    if not rows2:
+        print("ADVERTENCIA: No se encontraron filas en la segunda tabla de estadísticas.", file=sys.stderr)
+
     for row in rows2:
-        # CORRECCIÓN CLAVE AQUÍ: Buscar 'td' con la clase 'stat-cell'
-        cells = row.find_all('td', class_='stat-cell') 
-        
-        # OJO: Si la clase 'stat-cell' está en un SPAN dentro del TD, y tú quieres el texto del TD,
-        # asegúrate de extraerlo correctamente. El `.text.strip()` aplicado a `cell` (que ahora será el td)
-        # extraerá todo el texto dentro de ese td, incluyendo el del span.
+        # CORRECCIÓN CLAVE: Buscar directamente 'td' con la clase 'stat-cell'.
+        cells = row.find_all('td', class_='stat-cell')
         
         if len(cells) == 8: # Asegura que haya 8 celdas de estadísticas
-            stats_data.append({
-                'Número de partidos jugados': int(cells[0].text.strip()),
-                'El número de partidos ganados': int(cells[1].text.strip()),
-                'Empate': int(cells[2].text.strip()),
-                'Derrotas': int(cells[3].text.strip()),
-                'Goles a favor': int(cells[4].text.strip()),
-                'Goles en contra': int(cells[5].text.strip()),
-                'Diferencia de puntos': int(cells[6].text.strip()),
-                'Puntos': int(cells[7].text.strip())
-            })
+            try:
+                stats_data.append({
+                    'Número de partidos jugados': int(cells[0].text.strip()),
+                    'El número de partidos ganados': int(cells[1].text.strip()),
+                    'Empate': int(cells[2].text.strip()),
+                    'Derrotas': int(cells[3].text.strip()),
+                    'Goles a favor': int(cells[4].text.strip()),
+                    'Goles en contra': int(cells[5].text.strip()),
+                    'Diferencia de puntos': int(cells[6].text.strip()),
+                    'Puntos': int(cells[7].text.strip())
+                })
+            except ValueError as ve:
+                print(f"ADVERTENCIA: Error al convertir estadísticas a entero en fila: {row.prettify()} - Error: {ve}", file=sys.stderr)
+        else:
+            # Mensaje de depuración para ver por qué algunas filas no se procesan
+            print(f"DEBUG: Fila de estadísticas ignorada (no 8 celdas 'stat-cell' o clases incorrectas): {row.prettify()}", file=sys.stderr)
+
     # Verifica que ambas listas tengan el mismo número de elementos para poder unirlos.
     if len(teams_data) != len(stats_data):
         print(f"ADVERTENCIA: Número de equipos y estadísticas no coinciden. Equipos: {len(teams_data)}, Estadísticas: {len(stats_data)}", file=sys.stderr)
-        # Aquí podrías decidir cómo manejar esto: truncar, rellenar, o lanzar un error.
         # Para evitar errores en la unión, truncamos a la lista más corta.
         min_len = min(len(teams_data), len(stats_data))
         teams_data = teams_data[:min_len]
@@ -133,7 +156,24 @@ def parse_premier_league_standings(html_content: bytes) -> pd.DataFrame:
     # Une los DataFrames. Asumimos que el orden de las filas es consistente en ambas tablas.
     df_final = pd.concat([df_teams, df_stats], axis=1)
 
-    # Definir las columnas numéricas para futuras validaciones
+    # Definir los nuevos nombres de columnas
+    nuevos_nombres_columnas = {
+        'Posicion': 'Posicion',
+        'Abreviatura': 'Abreviatura',
+        'Equipo': 'Equipo',
+        0: 'Número de partidos jugados',
+        1: 'El número de partidos ganados',
+        2: 'Empate',
+        3: 'Derrotas',
+        4: 'Goles a favor',
+        5: 'Goles en contra',
+        6: 'Diferencia de puntos',
+        7: 'Puntos'
+    }
+    # Renombrar las columnas
+    df_final = df_final.rename(columns=nuevos_nombres_columnas)
+
+    # Definir las columnas numéricas para futuras validaciones y conversión
     num_cols = [
         'Posicion', 'Número de partidos jugados', 'El número de partidos ganados',
         'Empate', 'Derrotas', 'Goles a favor', 'Goles en contra',
