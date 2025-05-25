@@ -3,15 +3,16 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import os # Necesario para crear directorios si se guarda el CSV
 
 # Headers para la solicitud HTTP
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36"
 }
 
-def fetch_premier_league_html(url: str) -> str:
+def fetch_premier_league_html(url: str) -> bytes:
     """
-    Realiza una solicitud HTTP a la URL de la Premier League y retorna el contenido HTML.
+    Realiza una solicitud HTTP a la URL de la Premier League y retorna el contenido HTML como bytes.
     Lanza una excepción si la solicitud no es exitosa.
     """
     try:
@@ -20,7 +21,7 @@ def fetch_premier_league_html(url: str) -> str:
         return response.content
     except requests.exceptions.RequestException as e:
         print(f"Error al obtener la página de la Premier League: {e}")
-        raise # Vuelve a lanzar la excepción para que pueda ser capturada en un nivel superior o en las pruebas
+        raise # Re-lanza la excepción para manejo en un nivel superior o en las pruebas
 
 def parse_premier_league_standings(html_content: bytes) -> pd.DataFrame:
     """
@@ -29,7 +30,7 @@ def parse_premier_league_standings(html_content: bytes) -> pd.DataFrame:
     """
     soup = BeautifulSoup(html_content, "html.parser")
 
-    # Tabla 1: Posición, Abreviatura, Nombre
+    # Tabla 1: Posición, Abreviatura, Nombre del equipo
     tabla_posiciones1 = soup.find("table", {"class": "Table Table--align-right Table--fixed Table--fixed-left"})
     if not tabla_posiciones1:
         raise ValueError("No se encontró la primera tabla de posiciones en el HTML.")
@@ -39,7 +40,6 @@ def parse_premier_league_standings(html_content: bytes) -> pd.DataFrame:
     abreviaturas = []
     nombres = []
     for fila in filas1:
-        # Usamos .get_text(strip=True) para limpiar espacios en blanco
         posicion_tag = fila.find("span", {"class": "team-position ml2 pr3"})
         nombre_equipo_tag = fila.find("span", {"class": "hide-mobile"})
         abreviatura_equipo_tag = fila.find("span", {"class": "dn show-mobile"})
@@ -70,25 +70,27 @@ def parse_premier_league_standings(html_content: bytes) -> pd.DataFrame:
             datos_por_idx[data_idx] = []
         datos_por_idx[data_idx].extend([cell.get_text(strip=True) for cell in stat_cells])
 
-    # Convertir a DataFrame y transponer, manejando caso de datos vacíos
+    # Convertir a DataFrame y transponer
     if not datos_por_idx:
         df2 = pd.DataFrame()
     else:
-        df2 = pd.DataFrame(datos_por_idx).T
+        # Crea df2 a partir del diccionario, transpone y resetea el índice para poder concatenar.
+        df2 = pd.DataFrame.from_dict(datos_por_idx, orient='index')
+        df2 = df2.reset_index(drop=True)
 
     # Asegurarse de que ambos DataFrames tengan el mismo número de filas para la concatenación
-    # Esto puede ser un punto de fallo si la estructura HTML no es consistente
+    # Si hay un desajuste, Pandas puede llenar con NaN. Es importante que la lógica de tu scraper
+    # asuma que las filas de ambas tablas corresponden.
     if len(df1) != len(df2):
         print(f"Advertencia: El número de filas de las tablas no coincide. df1: {len(df1)}, df2: {len(df2)}")
-        # Aquí podrías implementar una lógica para alinear los DataFrames,
-        # como un merge por alguna clave común si existiera, o simplemente un manejo de error.
-        # Por ahora, simplemente reseteamos el índice y concatenamos.
+        # Para evitar errores en la concatenación si las filas no coinciden perfectamente,
+        # se puede optar por un merge si hubiera una clave común, o forzar una alineación.
+        # Aquí, simplemente concatenamos por índice, y Pandas manejará los NaNs.
 
-    df1 = df1.reset_index(drop=True)
-    df2 = df2.reset_index(drop=True)
-
+    # Concatenar los DataFrames
     df_final = pd.concat([df1, df2], axis=1)
 
+    # Renombrar columnas
     nuevos_nombres_columnas = {
         'Posición': 'Posicion',
         'Avr': 'Abreviatura',
@@ -105,7 +107,6 @@ def parse_premier_league_standings(html_content: bytes) -> pd.DataFrame:
     df_final = df_final.rename(columns=nuevos_nombres_columnas)
 
     # Convertir columnas numéricas a tipo numérico
-    # Esto es crucial para análisis o futuras operaciones de DB
     num_cols = [
         'Posicion', 'Número de partidos jugados', 'El número de partidos ganados',
         'Empate', 'Derrotas', 'Goles a favor', 'Goles en contra',
@@ -117,53 +118,36 @@ def parse_premier_league_standings(html_content: bytes) -> pd.DataFrame:
 
     return df_final
 
-def run_scraper(url: str) -> pd.DataFrame:
-    """
-    Función principal para ejecutar el scraper, obtener, parsear y retornar los datos.
-    """
-    html_content = fetch_premier_league_html(url)
-    df_standings = parse_premier_league_standings(html_content)
-    return df_standings
-
-if __name__ == "__main__":
-    # Este bloque solo se ejecutará cuando el script sea llamado directamente (ej. python src/scraper.py)
-    # No se ejecutará cuando se importen las funciones para pruebas.
-    PREMIER_LEAGUE_URL = "https://www.espn.com.co/futbol/posiciones/_/liga/eng.1"
-    try:
-        final_df = run_scraper(PREMIER_LEAGUE_URL)
-        print("Scraping completado. DataFrame obtenido:")
-        print(final_df.head()) # Muestra las primeras filas del DataFrame
-
-        # Aquí es donde podrías agregar la lógica para guardar a CSV o DB si se ejecuta manualmente,
-        # pero para el pipeline, el job de despliegue se encargará de esto.
-        output_dir = "data"
-        os.makedirs(output_dir, exist_ok=True)
-        output_path = os.path.join(output_dir, "premier_league_standings.csv")
-        final_df.to_csv(output_path, index=False)
-        print(f"Datos guardados en: {output_path}")
-
-    except Exception as e:
-        print(f"Ha ocurrido un error durante la ejecución del scraper: {e}")
-
-# Dentro de src/scraper.py, al final
 def save_dataframe_to_csv(df: pd.DataFrame, filepath: str):
     """Guarda un DataFrame de pandas en un archivo CSV."""
     try:
-        os.makedirs(os.path.dirname(filepath), exist_ok=True) # Asegura que el directorio exista
+        # Asegura que el directorio exista antes de intentar guardar el archivo
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
         df.to_csv(filepath, index=False)
         print(f"Datos guardados exitosamente en {filepath}")
     except Exception as e:
         print(f"Error al guardar los datos en CSV: {e}")
-        raise # Vuelve a lanzar la excepción
+        raise # Re-lanza la excepción
 
-# Y en tu `if __name__ == "__main__":` de src/scraper.py, úsala:
 if __name__ == "__main__":
+    # Este bloque solo se ejecutará cuando el script sea llamado directamente (ej. python src/scraper.py)
+    # y NO cuando sus funciones sean importadas por otros scripts (como los de prueba).
     PREMIER_LEAGUE_URL = "https://www.espn.com.co/futbol/posiciones/_/liga/eng.1"
-    output_path = os.path.join("data", "premier_league_standings.csv") # O donde quieras que se guarde
+    output_path = os.path.join("data", "premier_league_standings.csv") # La ruta donde se guardará el CSV
+
     try:
-        final_df = run_scraper(PREMIER_LEAGUE_URL)
-        print("Scraping completado. DataFrame obtenido:")
-        print(final_df.head())
-        save_dataframe_to_csv(final_df, output_path)
+        print(f"Iniciando scraping de la Premier League desde: {PREMIER_LEAGUE_URL}")
+        html_content = fetch_premier_league_html(PREMIER_LEAGUE_URL)
+        df_standings = parse_premier_league_standings(html_content)
+
+        print("\nScraping completado. Previsualización del DataFrame:")
+        print(df_standings.head()) # Muestra las primeras filas del DataFrame
+
+        save_dataframe_to_csv(df_standings, output_path)
+        print(f"\nProceso finalizado. Datos disponibles en: {output_path}")
+
     except Exception as e:
-        print(f"Ha ocurrido un error durante la ejecución del scraper: {e}")
+        print(f"\nHa ocurrido un error durante la ejecución del scraper: {e}")
+        # Aquí puedes añadir un logging más detallado si es necesario
+        import traceback
+        traceback.print_exc() # Imprime el stack trace completo del error
