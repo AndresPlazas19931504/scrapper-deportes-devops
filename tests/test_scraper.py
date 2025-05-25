@@ -1,19 +1,17 @@
-# tests/test_scraper.py
-
 import pytest
-import requests
 import pandas as pd
 from unittest.mock import patch, MagicMock
+import sys
 import os
 
-# Importa las funciones que vamos a probar de tu script refactorizado
-from src.scraper import fetch_premier_league_html, parse_premier_league_standings, save_dataframe_to_csv, HEADERS
+# Ajusta el path para importar el scraper desde src/
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
-# --- Datos Mock para las Pruebas ---
-# ESTE HTML ES CRÍTICO. DEBE REFLEJAR LA ESTRUCTURA DE LA PÁGINA REAL DE ESPN.
-# Cópialo de la página web (inspecciona el elemento) y simplifícalo para que solo contenga
-# la información relevante que tu scraper busca. Esto asegura que las pruebas sean estables.
+from scraper import fetch_premier_league_html, parse_premier_league_standings, save_dataframe_to_csv, HEADERS, ESPN_PREMIER_LEAGUE_URL
 
+# Mock HTML content for testing parse_premier_league_standings
+# Asegúrate de que este HTML sea ASCII puro para evitar SyntaxError.
+# Y que contenga 3 equipos completos en ambas tablas para la prueba de extracción.
 MOCK_ESPN_PREMIER_LEAGUE_HTML = b"""
 <!DOCTYPE html>
 <html>
@@ -91,8 +89,7 @@ MOCK_ESPN_PREMIER_LEAGUE_HTML = b"""
 </html>
 """
 
-# --- Pruebas para fetch_premier_league_html ---
-
+# Test cases for fetch_premier_league_html
 def test_fetch_premier_league_html_success():
     """Verifica que la función fetch_premier_league_html retorne el contenido HTML esperado en caso de éxito."""
     mock_response = MagicMock()
@@ -104,35 +101,40 @@ def test_fetch_premier_league_html_success():
         url = "https://www.espn.com.co/futbol/posiciones/_/liga/eng.1"
         html = fetch_premier_league_html(url)
         assert html == MOCK_ESPN_PREMIER_LEAGUE_HTML
-        # AÑADE timeout=10 AQUÍ
+        # Asegúrate de que el mock_get.assert_called_once_with() incluya el argumento timeout
         mock_get.assert_called_once_with(url, headers=HEADERS, timeout=10)
 
+
 def test_fetch_premier_league_html_http_error():
-    """Verifica que fetch_premier_league_html lance HTTPError en caso de error HTTP (ej. 404)."""
+    """Verifica que fetch_premier_league_html lance una excepción para errores HTTP."""
     mock_response = MagicMock()
     mock_response.status_code = 404
-    mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError("404 Client Error")
+    mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError("Not Found")
 
     with patch('requests.get', return_value=mock_response):
-        url = "https://www.espn.com.co/futbol/posiciones/_/liga/nonexistent"
         with pytest.raises(requests.exceptions.HTTPError):
-            fetch_premier_league_html(url)
+            fetch_premier_league_html(ESPN_PREMIER_LEAGUE_URL)
 
 def test_fetch_premier_league_html_connection_error():
-    """Verifica que fetch_premier_league_html lance ConnectionError en caso de fallo de conexión."""
-    with patch('requests.get', side_effect=requests.exceptions.ConnectionError("Network error")):
-        url = "https://www.espn.com.co/futbol/posiciones/_/liga/eng.1"
+    """Verifica que fetch_premier_league_html lance una excepción para errores de conexión."""
+    with patch('requests.get', side_effect=requests.exceptions.ConnectionError("No connection")):
         with pytest.raises(requests.exceptions.ConnectionError):
-            fetch_premier_league_html(url)
+            fetch_premier_league_html(ESPN_PREMIER_LEAGUE_URL)
 
-# --- Pruebas para parse_premier_league_standings ---
+def test_fetch_premier_league_html_timeout_error():
+    """Verifica que fetch_premier_league_html lance una excepción para errores de timeout."""
+    with patch('requests.get', side_effect=requests.exceptions.Timeout("Request timed out")):
+        with pytest.raises(requests.exceptions.Timeout):
+            fetch_premier_league_html(ESPN_PREMIER_LEAGUE_URL)
+
+# Test cases for parse_premier_league_standings
 def test_parse_premier_league_standings_correct_extraction():
     """Verifica que parse_premier_league_standings extraiga los datos correctos del HTML mock."""
     df = parse_premier_league_standings(MOCK_ESPN_PREMIER_LEAGUE_HTML)
 
     assert isinstance(df, pd.DataFrame)
     assert len(df) == 3 # Esperamos 3 equipos en el mock HTML
-    
+
     # Comprueba los nombres de las columnas
     expected_columns = [
         'Posicion', 'Abreviatura', 'Equipo', 'Número de partidos jugados',
@@ -158,90 +160,90 @@ def test_parse_premier_league_standings_correct_extraction():
     assert df.loc[1, 'Posicion'] == 2
     assert df.loc[1, 'Abreviatura'] == 'ARS'
     assert df.loc[1, 'Equipo'] == 'Arsenal'
-    assert df.loc[1, 'Puntos'] == 84 # Solo un ejemplo, verifica más si quieres
+    assert df.loc[1, 'Número de partidos jugados'] == 38
+    assert df.loc[1, 'El número de partidos ganados'] == 26
+    assert df.loc[1, 'Empate'] == 6
+    assert df.loc[1, 'Derrotas'] == 6
+    assert df.loc[1, 'Goles a favor'] == 88
+    assert df.loc[1, 'Goles en contra'] == 29
+    assert df.loc[1, 'Diferencia de puntos'] == 59
+    assert df.loc[1, 'Puntos'] == 84
 
-    # AÑADE LA DEFINICIÓN DE num_cols AQUÍ, ANTES DEL BUCLE
+    # Verifica los datos del tercer equipo (Liverpool) - Asegúrate de que el mock sea completo
+    assert df.loc[2, 'Posicion'] == 3
+    assert df.loc[2, 'Abreviatura'] == 'LIV'
+    assert df.loc[2, 'Equipo'] == 'Liverpool'
+    assert df.loc[2, 'Número de partidos jugados'] == 38
+    assert df.loc[2, 'El número de partidos ganados'] == 25
+    assert df.loc[2, 'Empate'] == 10
+    assert df.loc[2, 'Derrotas'] == 3
+    assert df.loc[2, 'Goles a favor'] == 86
+    assert df.loc[2, 'Goles en contra'] == 41
+    assert df.loc[2, 'Diferencia de puntos'] == 45
+    assert df.loc[2, 'Puntos'] == 85
+
+
+    # Verifica los tipos de datos de las columnas numéricas
     num_cols = [
         'Posicion', 'Número de partidos jugados', 'El número de partidos ganados',
         'Empate', 'Derrotas', 'Goles a favor', 'Goles en contra',
         'Diferencia de puntos', 'Puntos'
     ]
-    
-    # Verifica los tipos de datos de las columnas numéricas
     for col in num_cols:
         assert pd.api.types.is_numeric_dtype(df[col]), f"Columna {col} no es numérica"
 
-def test_parse_premier_league_standings_empty_html():
-    """Verifica que la función lance un ValueError si no se encuentra la primera tabla."""
-    empty_html = b"<html><body><h1>Empty Page</h1></body></html>"
+def test_parse_premier_league_standings_missing_tables():
+    """Verifica que parse_premier_league_standings lance ValueError si faltan tablas."""
+    # HTML sin ninguna tabla
+    html_content_empty = b"<html><body><div>No tables here</div></body></html>"
     with pytest.raises(ValueError, match="No se encontró la primera tabla de posiciones"):
-        parse_premier_league_standings(empty_html)
+        parse_premier_league_standings(html_content_empty)
 
-def test_parse_premier_league_standings_missing_second_table():
-    """Verifica que la función lance un ValueError si falta la segunda tabla."""
-    html_with_only_first_table = b"""
-    <html>
-    <body>
-        <table class="Table Table--align-right Table--fixed Table--fixed-left">
-            <thead></thead>
-            <tbody>
-                <tr class="Table__TR Table__TR--sm Table__even">
-                    <td><span class="team-position ml2 pr3">1</span></td>
-                    <td><div class="team-info">
-                        <span class="hide-mobile">Team A</span>
-                        <span class="dn show-mobile">TMA</span>
-                    </div></td>
-                </tr>
-            </tbody>
-        </table>
-    </body>
-    </html>
+    # HTML con solo la primera tabla
+    html_content_partial = b"""
+    <html><body>
+        <table class="Table Table--align-right Table--fixed Table--fixed-left"></table>
+    </body></html>
     """
     with pytest.raises(ValueError, match="No se encontró la segunda tabla de posiciones"):
-        parse_premier_league_standings(html_with_only_first_table)
+        parse_premier_league_standings(html_content_partial)
 
-# --- Pruebas para save_dataframe_to_csv ---
+def test_parse_premier_league_standings_empty_html():
+    """Verifica que parse_premier_league_standings maneje HTML vacío."""
+    df = parse_premier_league_standings(b"")
+    assert isinstance(df, pd.DataFrame)
+    assert df.empty
 
+
+# Test cases for save_dataframe_to_csv
 @pytest.fixture
-def temp_csv_path(tmp_path):
-    """Fixture de pytest para crear una ruta de archivo temporal y limpiarla."""
-    # tmp_path es un fixture de pytest que proporciona una ruta a un directorio temporal único.
-    return tmp_path / "test_premier_league_standings.csv"
+def sample_dataframe():
+    """Fixture que proporciona un DataFrame de ejemplo para las pruebas."""
+    data = {
+        'Posicion': [1, 2],
+        'Equipo': ['Equipo A', 'Equipo B'],
+        'Puntos': [10, 8]
+    }
+    return pd.DataFrame(data)
 
-def test_save_dataframe_to_csv_creates_file(temp_csv_path):
-    """Verifica que save_dataframe_to_csv cree el archivo CSV."""
-    test_data = pd.DataFrame([
-        {'Posicion': 1, 'Equipo': 'Test Team', 'Puntos': 10, 'Abreviatura': 'TST',
-         'Número de partidos jugados': 5, 'El número de partidos ganados': 3,
-         'Empate': 1, 'Derrotas': 1, 'Goles a favor': 8, 'Goles en contra': 5,
-         'Diferencia de puntos': 3}
-    ])
-    save_dataframe_to_csv(test_data, str(temp_csv_path))
-    assert os.path.exists(temp_csv_path)
+def test_save_dataframe_to_csv_creates_file(tmp_path, sample_dataframe):
+    """Verifica que save_dataframe_to_csv cree un archivo CSV."""
+    output_file = tmp_path / "test_standings.csv"
+    save_dataframe_to_csv(sample_dataframe, str(output_file))
+    assert output_file.is_file()
 
-def test_save_dataframe_to_csv_correct_content(temp_csv_path):
-    """Verifica que save_dataframe_to_csv escriba el contenido correcto en el CSV."""
-    test_data = pd.DataFrame([
-        {'Posicion': 1, 'Equipo': 'Team X', 'Puntos': 20, 'Abreviatura': 'TMX',
-         'Número de partidos jugados': 10, 'El número de partidos ganados': 6,
-         'Empate': 2, 'Derrotas': 2, 'Goles a favor': 20, 'Goles en contra': 10,
-         'Diferencia de puntos': 10}
-    ])
-    save_dataframe_to_csv(test_data, str(temp_csv_path))
+def test_save_dataframe_to_csv_content(tmp_path, sample_dataframe):
+    """Verifica que el contenido del CSV sea correcto."""
+    output_file = tmp_path / "test_standings.csv"
+    save_dataframe_to_csv(sample_dataframe, str(output_file))
+    
+    loaded_df = pd.read_csv(output_file)
+    pd.testing.assert_frame_equal(loaded_df, sample_dataframe)
 
-    df_read = pd.read_csv(temp_csv_path)
-    pd.testing.assert_frame_equal(df_read, test_data) # Compara DataFrames directamente
-    assert df_read.loc[0, 'Equipo'] == 'Team X'
-
-def test_save_dataframe_to_csv_empty_data(temp_csv_path):
-    """Verifica que save_dataframe_to_csv maneje DataFrames vacíos sin errores."""
-    empty_data = pd.DataFrame(columns=[
-        'Posicion', 'Abreviatura', 'Equipo', 'Número de partidos jugados',
-        'El número de partidos ganados', 'Empate', 'Derrotas', 'Goles a favor',
-        'Goles en contra', 'Diferencia de puntos', 'Puntos'
-    ])
-    save_dataframe_to_csv(empty_data, str(temp_csv_path))
-    assert os.path.exists(temp_csv_path)
-    df_read = pd.read_csv(temp_csv_path)
-    assert df_read.empty
-    assert list(df_read.columns) == list(empty_data.columns) # Asegura que las columnas se mantengan
+def test_save_dataframe_to_csv_creates_directory(tmp_path, sample_dataframe):
+    """Verifica que save_dataframe_to_csv cree el directorio si no existe."""
+    output_dir = tmp_path / "subfolder"
+    output_file = output_dir / "test_standings.csv"
+    save_dataframe_to_csv(sample_dataframe, str(output_file))
+    assert output_dir.is_dir()
+    assert output_file.is_file()
