@@ -70,8 +70,6 @@ jobs:
 
       - name: Ejecutar el Scraper
         # Ejecuta el script principal del scraper. Esto generará el CSV en la carpeta 'data/'.
-        # Asegúrate de que tu `if __name__ == "__main__":` en `src/scraper.py`
-        # guarde el archivo CSV en una ubicación que GitHub Actions pueda acceder (ej. 'data/').
         run: python src/scraper.py
 
       - name: Configurar Git para el commit automático
