@@ -104,7 +104,8 @@ def test_fetch_premier_league_html_success():
         url = "https://www.espn.com.co/futbol/posiciones/_/liga/eng.1"
         html = fetch_premier_league_html(url)
         assert html == MOCK_ESPN_PREMIER_LEAGUE_HTML
-        mock_get.assert_called_once_with(url, headers=HEADERS)
+        # AÑADE timeout=10 AQUÍ
+        mock_get.assert_called_once_with(url, headers=HEADERS, timeout=10)
 
 def test_fetch_premier_league_html_http_error():
     """Verifica que fetch_premier_league_html lance HTTPError en caso de error HTTP (ej. 404)."""
