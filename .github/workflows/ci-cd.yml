@@ -30,8 +30,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          # pytest ya está en requirements.txt, no es estrictamente necesario instalarlo aquí de nuevo
-          # pip install pytest
 
       # AÑADE ESTE PASO AQUÍ PARA CONFIGURAR PYTHONPATH
       - name: Set PYTHONPATH for tests
@@ -44,6 +42,8 @@ jobs:
     name: Ejecutar Scraper y Desplegar Datos
     needs: build-and-test
     runs-on: ubuntu-latest
+    permissions: # <--- ¡AÑADE ESTA SECCIÓN AQUÍ!
+      contents: write # <--- Permite que GITHUB_TOKEN empuje cambios
 
     steps:
       - name: Checkout del repositorio
