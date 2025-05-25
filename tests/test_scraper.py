@@ -210,10 +210,12 @@ def test_parse_premier_league_standings_missing_tables():
         parse_premier_league_standings(html_content_partial)
 
 def test_parse_premier_league_standings_empty_html():
-    """Verifica que parse_premier_league_standings maneje HTML vacío."""
-    df = parse_premier_league_standings(b"")
-    assert isinstance(df, pd.DataFrame)
-    assert df.empty
+    """
+    Verifica que parse_premier_league_standings lance ValueError cuando se le pasa HTML vacío,
+    ya que no encontrará la primera tabla.
+    """
+    with pytest.raises(ValueError, match="No se encontró la primera tabla de posiciones en el HTML."): # <--- CAMBIO AQUI
+        parse_premier_league_standings(b"")
 
 
 # Test cases for save_dataframe_to_csv
