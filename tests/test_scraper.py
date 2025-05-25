@@ -54,34 +54,34 @@ MOCK_ESPN_PREMIER_LEAGUE_HTML = b"""
             </thead>
             <tbody class="Table__TBODY">
                 <tr class="Table__TR Table__TR--sm Table__even" data-idx="0">
-                    <td class="stat-cell">38</td>
-                    <td class="stat-cell">28</td>
-                    <td class="stat-cell">7</td>
-                    <td class="stat-cell">3</td>
-                    <td class="stat-cell">96</td>
-                    <td class="stat-cell">34</td>
-                    <td class="stat-cell">62</td>
-                    <td class="stat-cell">91</td>
+                    <td class="Table__TD"><span class="stat-cell">38</span></td>
+                    <td class="Table__TD"><span class="stat-cell">28</span></td>
+                    <td class="Table__TD"><span class="stat-cell">7</span></td>
+                    <td class="Table__TD"><span class="stat-cell">3</span></td>
+                    <td class="Table__TD"><span class="stat-cell">96</span></td>
+                    <td class="Table__TD"><span class="stat-cell">34</span></td>
+                    <td class="Table__TD"><span class="stat-cell clr-positive">62</span></td>
+                    <td class="Table__TD"><span class="stat-cell">91</span></td>
                 </tr>
                 <tr class="Table__TR Table__TR--sm Table__even filled" data-idx="1">
-                    <td class="stat-cell">38</td>
-                    <td class="stat-cell">26</td>
-                    <td class="stat-cell">6</td>
-                    <td class="stat-cell">6</td>
-                    <td class="stat-cell">88</td>
-                    <td class="stat-cell">29</td>
-                    <td class="stat-cell">59</td>
-                    <td class="stat-cell">84</td>
+                    <td class="Table__TD"><span class="stat-cell">38</span></td>
+                    <td class="Table__TD"><span class="stat-cell">26</span></td>
+                    <td class="Table__TD"><span class="stat-cell">6</span></td>
+                    <td class="Table__TD"><span class="stat-cell">6</span></td>
+                    <td class="Table__TD"><span class="stat-cell">88</span></td>
+                    <td class="Table__TD"><span class="stat-cell">29</span></td>
+                    <td class="Table__TD"><span class="stat-cell clr-positive">59</span></td>
+                    <td class="Table__TD"><span class="stat-cell">84</span></td>
                 </tr>
                  <tr class="Table__TR Table__TR--sm Table__even" data-idx="2">
-                    <td class="stat-cell">38</td>
-                    <td class="stat-cell">25</td>
-                    <td class="stat-cell">10</td>
-                    <td class="stat-cell">3</td>
-                    <td class="stat-cell">86</td>
-                    <td class="stat-cell">41</td>
-                    <td class="stat-cell">45</td>
-                    <td class="stat-cell">85</td>
+                    <td class="Table__TD"><span class="stat-cell">38</span></td>
+                    <td class="Table__TD"><span class="stat-cell">25</span></td>
+                    <td class="Table__TD"><span class="stat-cell">10</span></td>
+                    <td class="Table__TD"><span class="stat-cell">3</span></td>
+                    <td class="Table__TD"><span class="stat-cell">86</span></td>
+                    <td class="Table__TD"><span class="stat-cell">41</span></td>
+                    <td class="Table__TD"><span class="stat-cell clr-positive">45</span></td>
+                    <td class="Table__TD"><span class="stat-cell">85</span></td>
                 </tr>
             </tbody>
         </table>
@@ -214,7 +214,7 @@ def test_parse_premier_league_standings_empty_html():
     Verifica que parse_premier_league_standings lance ValueError cuando se le pasa HTML vacío,
     ya que no encontrará la primera tabla.
     """
-    with pytest.raises(ValueError, match="No se encontró la primera tabla de posiciones en el HTML."): # <--- CAMBIO AQUI
+    with pytest.raises(ValueError, match="No se encontró la primera tabla de posiciones en el HTML."):
         parse_premier_league_standings(b"")
 
 
