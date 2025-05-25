@@ -1,0 +1,91 @@
+# .github/workflows/ci-cd.yml
+
+name: CI/CD Pipeline para Scraper de Premier League
+
+# Define los eventos que dispararán este workflow
+on:
+  # Se ejecuta en cada 'push' a la rama 'main'
+  push:
+    branches:
+      - main
+  # Se ejecuta en cada 'Pull Request' dirigido a la rama 'main'
+  pull_request:
+    branches:
+      - main
+  # Se ejecuta en un horario fijo (ej. cada día a las 00:00 UTC)
+  # Puedes ajustar el cronjob según tu necesidad.
+  # Más info sobre cron jobs: https://crontab.guru/
+  schedule:
+    - cron: '0 0 * * *' # "At 00:00 on every day-of-week."
+
+# Define los trabajos (jobs) que componen el pipeline
+jobs:
+  # Job de Integración Continua (CI): Construcción y Pruebas
+  build-and-test:
+    name: Build & Test Scraper
+    runs-on: ubuntu-latest # Ejecuta el job en una máquina virtual Linux
+
+    steps:
+      - name: Checkout del repositorio
+        # Esta acción clona tu repositorio de GitHub en la máquina virtual
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        # Esta acción configura el entorno Python. Asegúrate de que la versión coincida con la que usas.
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9' # Puedes usar '3.8', '3.10', '3.11', '3.12'
+
+      - name: Instalar dependencias
+        # Instala las librerías listadas en requirements.txt y pytest
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest # pytest es necesario para ejecutar las pruebas
+
+      - name: Ejecutar pruebas unitarias
+        # Corre pytest en el directorio 'tests'
+        run: pytest tests/
+
+  # Job de Despliegue Continuo (CD)
+  deploy:
+    name: Ejecutar Scraper y Desplegar Datos
+    needs: build-and-test # Este job solo se ejecuta si 'build-and-test' fue exitoso
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Instalar dependencias para despliegue
+        # Asegura que todas las dependencias necesarias para la ejecución del scraper estén instaladas
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Ejecutar el Scraper
+        # Ejecuta el script principal del scraper. Esto generará el CSV en la carpeta 'data/'.
+        # Asegúrate de que tu `if __name__ == "__main__":` en `src/scraper.py`
+        # guarde el archivo CSV en una ubicación que GitHub Actions pueda acceder (ej. 'data/').
+        run: python src/scraper.py
+
+      - name: Configurar Git para el commit automático
+        # Configura la identidad de Git para el bot de GitHub Actions.
+        # Esto es necesario para que el bot pueda hacer commits.
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commitear y subir los datos actualizados
+        # Este paso simula el "despliegue" al subir el archivo CSV generado al repositorio.
+        # Solo se ejecuta en 'push' o en 'schedule' para evitar commits redundantes en PRs.
+        if: github.event_name == 'schedule' || github.event_name == 'push'
+        run: |
+          git add data/premier_league_standings.csv # Asegúrate de que esta ruta sea correcta
+          git commit -m "Automated: Actualizar datos de Premier League" || echo "No hay cambios para commitear"
+          git push
