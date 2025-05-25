@@ -13,6 +13,7 @@ from src.scraper import fetch_premier_league_html, parse_premier_league_standing
 # ESTE HTML ES CRÍTICO. DEBE REFLEJAR LA ESTRUCTURA DE LA PÁGINA REAL DE ESPN.
 # Cópialo de la página web (inspecciona el elemento) y simplifícalo para que solo contenga
 # la información relevante que tu scraper busca. Esto asegura que las pruebas sean estables.
+
 MOCK_ESPN_PREMIER_LEAGUE_HTML = b"""
 <!DOCTYPE html>
 <html>
@@ -73,7 +74,7 @@ MOCK_ESPN_PREMIER_LEAGUE_HTML = b"""
                     <td class="stat-cell">59</td>
                     <td class="stat-cell">84</td>
                 </tr>
-                 <tr class="Table__TR Table__TR--sm Table__even" data-idx="2">  <-- ¡AÑADE ESTA FILA!
+                 <tr class="Table__TR Table__TR--sm Table__even" data-idx="2">
                     <td class="stat-cell">38</td>
                     <td class="stat-cell">25</td>
                     <td class="stat-cell">10</td>
