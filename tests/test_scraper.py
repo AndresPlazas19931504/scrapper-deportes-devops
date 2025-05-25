@@ -13,7 +13,7 @@ from src.scraper import fetch_premier_league_html, parse_premier_league_standing
 # ESTE HTML ES CRÍTICO. DEBE REFLEJAR LA ESTRUCTURA DE LA PÁGINA REAL DE ESPN.
 # Cópialo de la página web (inspecciona el elemento) y simplifícalo para que solo contenga
 # la información relevante que tu scraper busca. Esto asegura que las pruebas sean estables.
-MOCK_ESPN_PREMIER_LEAGUE_HTML = b"""
+MOCK_ESPN_PREMIER_LEAGUE_HTML = "https://www.espn.com.co/futbol/posiciones/_/liga/eng.1"
 <!DOCTYPE html>
 <html>
 <head><title>ESPN Premier League Standings Mock</title></head>
