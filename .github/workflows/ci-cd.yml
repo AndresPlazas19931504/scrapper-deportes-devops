@@ -29,9 +29,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # AÑADE ESTE PASO AQUÍ PARA CONFIGURAR PYTHONPATH
       - name: Set PYTHONPATH for tests
-        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV # Asegura que la raíz del proyecto esté en el PATH
+        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
 
       - name: Ejecutar pruebas unitarias
         run: pytest tests/
@@ -40,8 +39,8 @@ jobs:
     name: Ejecutar Scraper y Desplegar Datos
     needs: build-and-test
     runs-on: ubuntu-latest
-    permissions: # <--- ¡AÑADE ESTA SECCIÓN AQUÍ!
-      contents: write # <--- Permite que GITHUB_TOKEN empuje cambios
+    permissions: 
+      contents: write
 
     steps:
       - name: Checkout del repositorio
@@ -59,7 +58,7 @@ jobs:
 
       # AÑADE ESTE PASO AQUÍ TAMBIÉN PARA EL JOB DEPLOY
       - name: Set PYTHONPATH for scraper execution
-        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV # Asegura que la raíz del proyecto esté en el PATH
+        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
 
       - name: Ejecutar el Scraper
         run: python src/scraper.py
