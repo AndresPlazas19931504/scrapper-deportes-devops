@@ -26,3 +26,17 @@ El objetivo principal es proporcionar datos actualizados y confiables de la liga
 * **`pytest`**: Framework de pruebas para escribir y ejecutar pruebas unitarias automatizadas.
 
 ## **Estructura del Repositorio**
+scraper-deportes-devops/
+├── requirements.txt
+├── Plazas__Andres_Analizando_EA1.ipynb
+├── src/
+│   ├── __init__.py
+│   └── scraper.py
+├── tests/
+│   └── test_scraper.py
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml
+├── data/
+├── .gitignore
+└── README.md
