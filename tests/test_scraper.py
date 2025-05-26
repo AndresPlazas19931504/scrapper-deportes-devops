@@ -5,14 +5,10 @@ import sys
 import os
 import requests
 
-# Ajusta el path para importar el scraper desde src/
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
 from scraper import fetch_premier_league_html, parse_premier_league_standings, save_dataframe_to_csv, HEADERS, ESPN_PREMIER_LEAGUE_URL
 
-# Mock HTML content for testing parse_premier_league_standings
-# Asegúrate de que este HTML sea ASCII puro para evitar SyntaxError.
-# Y que contenga 3 equipos completos en ambas tablas para la prueba de extracción.
 MOCK_ESPN_PREMIER_LEAGUE_HTML = b"""
 <!DOCTYPE html>
 <html>
@@ -90,7 +86,6 @@ MOCK_ESPN_PREMIER_LEAGUE_HTML = b"""
 </html>
 """
 
-# Test cases for fetch_premier_league_html
 def test_fetch_premier_league_html_success():
     """Verifica que la función fetch_premier_league_html retorne el contenido HTML esperado en caso de éxito."""
     mock_response = MagicMock()
@@ -102,7 +97,7 @@ def test_fetch_premier_league_html_success():
         url = "https://www.espn.com.co/futbol/posiciones/_/liga/eng.1"
         html = fetch_premier_league_html(url)
         assert html == MOCK_ESPN_PREMIER_LEAGUE_HTML
-        # Asegúrate de que el mock_get.assert_called_once_with() incluya el argumento timeout
+
         mock_get.assert_called_once_with(url, headers=HEADERS, timeout=10)
 
 
@@ -128,7 +123,6 @@ def test_fetch_premier_league_html_timeout_error():
         with pytest.raises(requests.exceptions.Timeout):
             fetch_premier_league_html(ESPN_PREMIER_LEAGUE_URL)
 
-# Test cases for parse_premier_league_standings
 def test_parse_premier_league_standings_correct_extraction():
     """Verifica que parse_premier_league_standings extraiga los datos correctos del HTML mock."""
     df = parse_premier_league_standings(MOCK_ESPN_PREMIER_LEAGUE_HTML)
@@ -136,7 +130,6 @@ def test_parse_premier_league_standings_correct_extraction():
     assert isinstance(df, pd.DataFrame)
     assert len(df) == 3 # Esperamos 3 equipos en el mock HTML
 
-    # Comprueba los nombres de las columnas
     expected_columns = [
         'Posicion', 'Abreviatura', 'Equipo', 'Número de partidos jugados',
         'El número de partidos ganados', 'Empate', 'Derrotas', 'Goles a favor',
@@ -144,7 +137,6 @@ def test_parse_premier_league_standings_correct_extraction():
     ]
     assert list(df.columns) == expected_columns
 
-    # Verifica los datos del primer equipo (Manchester City)
     assert df.loc[0, 'Posicion'] == 1
     assert df.loc[0, 'Abreviatura'] == 'MCI'
     assert df.loc[0, 'Equipo'] == 'Manchester City'
@@ -157,7 +149,6 @@ def test_parse_premier_league_standings_correct_extraction():
     assert df.loc[0, 'Diferencia de puntos'] == 62
     assert df.loc[0, 'Puntos'] == 91
 
-    # Verifica los datos del segundo equipo (Arsenal)
     assert df.loc[1, 'Posicion'] == 2
     assert df.loc[1, 'Abreviatura'] == 'ARS'
     assert df.loc[1, 'Equipo'] == 'Arsenal'
@@ -170,7 +161,6 @@ def test_parse_premier_league_standings_correct_extraction():
     assert df.loc[1, 'Diferencia de puntos'] == 59
     assert df.loc[1, 'Puntos'] == 84
 
-    # Verifica los datos del tercer equipo (Liverpool) - Asegúrate de que el mock sea completo
     assert df.loc[2, 'Posicion'] == 3
     assert df.loc[2, 'Abreviatura'] == 'LIV'
     assert df.loc[2, 'Equipo'] == 'Liverpool'
@@ -184,7 +174,6 @@ def test_parse_premier_league_standings_correct_extraction():
     assert df.loc[2, 'Puntos'] == 85
 
 
-    # Verifica los tipos de datos de las columnas numéricas
     num_cols = [
         'Posicion', 'Número de partidos jugados', 'El número de partidos ganados',
         'Empate', 'Derrotas', 'Goles a favor', 'Goles en contra',
@@ -195,12 +184,11 @@ def test_parse_premier_league_standings_correct_extraction():
 
 def test_parse_premier_league_standings_missing_tables():
     """Verifica que parse_premier_league_standings lance ValueError si faltan tablas."""
-    # HTML sin ninguna tabla
+
     html_content_empty = b"<html><body><div>No tables here</div></body></html>"
     with pytest.raises(ValueError, match="No se encontró la primera tabla de posiciones"):
         parse_premier_league_standings(html_content_empty)
 
-    # HTML con solo la primera tabla
     html_content_partial = b"""
     <html><body>
         <table class="Table Table--align-right Table--fixed Table--fixed-left"></table>
@@ -218,7 +206,6 @@ def test_parse_premier_league_standings_empty_html():
         parse_premier_league_standings(b"")
 
 
-# Test cases for save_dataframe_to_csv
 @pytest.fixture
 def sample_dataframe():
     """Fixture que proporciona un DataFrame de ejemplo para las pruebas."""
