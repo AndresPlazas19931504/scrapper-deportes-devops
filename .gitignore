@@ -1,13 +1,10 @@
-# Archivos específicos del sistema operativo
 .DS_Store
 Thumbs.db
 
-# Entornos virtuales
 venv/
 env/
 .env
 
-# Archivos de Python
 __pycache__/
 *.pyc
 *.pyo
@@ -20,26 +17,17 @@ dist/
 *.egg-info/
 .mypy_cache/
 
-# Jupyter Notebook / Colab
 *.ipynb_checkpoints/
-# Si tienes tu notebook Colab (.ipynb) en el repositorio,
-# asegúrate de que la siguiente línea esté COMENTADA o no exista:
-# *.ipynb 
 
-# Bases de datos SQLite (si se generan localmente o son temporales)
-# Esto NO debería ignorar el archivo si lo usas en Colab y lo subes al Drive.
-# Solo si generas DBs locales temporales.
 *.db
 *.sqlite
 *.sqlite3
 
-# Archivos de configuración y credenciales (ej. claves API, configuraciones sensibles)
 config.ini
 .env.local
 .credentials
 *.key
 *.pem
 
-# Logs
 *.log
 logs/
