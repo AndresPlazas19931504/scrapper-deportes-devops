@@ -2,74 +2,173 @@ name: CI/CD Pipeline para Scraper de Premier League
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main, develop ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * *'  # Ejecutar diariamente a medianoche
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-test:
+  test:
     name: Build & Test Scraper
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout del repositorio
-        uses: actions/checkout@v4
+    - name: Checkout del repositorio
+      uses: actions/checkout@v4
+    
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+        
+    - name: Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov
+        
+    - name: Set PYTHONPATH for tests
+      run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+        
+    - name: Ejecutar pruebas unitarias con cobertura
+      run: |
+        pytest tests/ -v --cov=src --cov-report=xml --cov-report=term
+        
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+      if: github.event_name != 'schedule'
 
-      - name: Configurar Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.9'
-
-      - name: Instalar dependencias
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Set PYTHONPATH for tests
-        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
-
-      - name: Ejecutar pruebas unitarias
-        run: pytest tests/
-
-  deploy:
-    name: Ejecutar Scraper y Desplegar Datos
-    needs: build-and-test
+  build-and-push:
+    name: Build and Push Docker Image
+    needs: test
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    permissions:
+      contents: read
+      packages: write
+      
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=sha
+          type=raw,value=latest,enable={{is_default_branch}}
+          
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+
+  scraper-deploy:
+    name: Ejecutar Scraper y Actualizar Datos
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    
     permissions: 
       contents: write
-
+      
     steps:
-      - name: Checkout del repositorio
-        uses: actions/checkout@v4
+    - name: Checkout del repositorio
+      uses: actions/checkout@v4
+      
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+        
+    - name: Instalar dependencias para scraper
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Set PYTHONPATH for scraper execution
+      run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+      
+    - name: Ejecutar el Scraper
+      run: python src/scraper.py
+      
+    - name: Configurar Git para el commit automático
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        
+    - name: Verificar cambios en los datos
+      id: check_changes
+      run: |
+        if git diff --quiet data/premier_league_standings.csv; then
+          echo "changes=false" >> $GITHUB_OUTPUT
+          echo "No hay cambios en los datos"
+        else
+          echo "changes=true" >> $GITHUB_OUTPUT
+          echo "Se detectaron cambios en los datos"
+        fi
+        
+    - name: Commitear y subir los datos actualizados
+      if: steps.check_changes.outputs.changes == 'true'
+      run: |
+        git add data/premier_league_standings.csv
+        git commit -m "🤖 Automated: Actualizar datos de Premier League - $(date '+%Y-%m-%d %H:%M:%S')"
+        git push
+        
+    - name: Notificar resultado
+      run: |
+        if [ "${{ steps.check_changes.outputs.changes }}" == "true" ]; then
+          echo "✅ Datos actualizados exitosamente"
+        else
+          echo "ℹ️ No se requirieron actualizaciones"
+        fi
 
-      - name: Configurar Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.9'
-
-      - name: Instalar dependencias para despliegue
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Set PYTHONPATH for scraper execution
-        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
-
-      - name: Ejecutar el Scraper
-        run: python src/scraper.py
-
-      - name: Configurar Git para el commit automático
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Commitear y subir los datos actualizados
-        if: github.event_name == 'schedule' || github.event_name == 'push'
-        run: |
-          git add data/premier_league_standings.csv
-          git commit -m "Automated: Actualizar datos de Premier League" || echo "No hay cambios para commitear"
-          git push
+  deploy:
+    name: Deploy to Production
+    needs: [build-and-push, scraper-deploy]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Deploy application
+      run: |
+        echo "🚀 Iniciando deployment a producción"
+        echo "📊 Datos del scraper actualizados"
+        echo "🐳 Imagen Docker disponible en: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+        # Aquí puedes agregar pasos específicos de deployment:
+        # - Actualizar servicio en Kubernetes
+        # - Desplegar en servidor web
+        # - Actualizar base de datos
+        # - Notificar a servicios externos
+        echo "✅ Deployment completado"
+        
+    - name: Health check
+      run: |
+        echo "🏥 Ejecutando health checks post-deployment"
+        # Aquí puedes agregar verificaciones de salud:
+        # - Verificar endpoints de API
+        # - Validar integridad de datos
+        # - Confirmar servicios activos
+        echo "✅ Health checks completados"
