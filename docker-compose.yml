@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  scraper-deportes:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: scraper-deportes-andres
+    environment:
+      - PYTHONPATH=/app
+      - ENVIRONMENT=production
+      - DB_PATH=/app/db/deportes.db
+      - SCRAPER_USER=andres_plazas
+      - SCRAPER_VERSION=1.0
+    volumes:
+      - ./data:/app/data
+      - ./db:/app/db
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - scraper-network
+
+networks:
+  scraper-network:
+    driver: bridge
