@@ -1,21 +1,21 @@
 Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos ganados,Empate,Derrotas,Goles a favor,Goles en contra,Diferencia de puntos,Puntos
-1,LIV,Liverpool,38,25,9,4,86,41,45,84
-2,ARS,Arsenal,38,20,14,4,69,34,35,74
-3,MCI,Manchester City,38,21,8,9,72,44,28,71
-4,CHE,Chelsea,38,20,9,9,64,43,21,69
-5,NEW,Newcastle United,38,20,6,12,68,47,21,66
-6,AVL,Aston Villa,38,19,9,10,58,51,7,66
-7,FOR,Nottingham Forest,38,19,8,11,58,46,12,65
-8,BHA,Brighton & Hove Albion,38,16,13,9,66,59,7,61
-9,BOU,AFC Bournemouth,38,15,11,12,58,46,12,56
-10,BRN,Brentford,38,16,8,14,66,57,9,56
-11,FUL,Fulham,38,15,9,14,54,54,0,54
-12,CRY,Crystal Palace,38,13,14,11,51,51,0,53
-13,EVE,Everton,38,11,15,12,42,44,2,48
-14,WHU,West Ham United,38,11,10,17,46,62,16,43
-15,MUN,Manchester United,38,11,9,18,44,54,10,42
-16,WOL,Wolverhampton Wanderers,38,12,6,20,54,69,15,42
-17,TOT,Tottenham Hotspur,38,11,5,22,64,65,1,38
-18,LEI,Leicester City,38,6,7,25,33,80,47,25
-19,IPS,Ipswich Town,38,4,10,24,36,82,46,22
-20,SOU,Southampton,38,2,6,30,26,86,60,12
+1,ARS,Arsenal,0,0,0,0,0,0,0,0
+2,AVL,Aston Villa,0,0,0,0,0,0,0,0
+3,BOU,AFC Bournemouth,0,0,0,0,0,0,0,0
+4,BRN,Brentford,0,0,0,0,0,0,0,0
+5,BHA,Brighton & Hove Albion,0,0,0,0,0,0,0,0
+6,BRN,Burnley,0,0,0,0,0,0,0,0
+7,CHE,Chelsea,0,0,0,0,0,0,0,0
+8,CRY,Crystal Palace,0,0,0,0,0,0,0,0
+9,EVE,Everton,0,0,0,0,0,0,0,0
+10,FUL,Fulham,0,0,0,0,0,0,0,0
+11,LEE,Leeds United,0,0,0,0,0,0,0,0
+12,LIV,Liverpool,0,0,0,0,0,0,0,0
+13,MCI,Manchester City,0,0,0,0,0,0,0,0
+14,MUN,Manchester United,0,0,0,0,0,0,0,0
+15,NEW,Newcastle United,0,0,0,0,0,0,0,0
+16,FOR,Nottingham Forest,0,0,0,0,0,0,0,0
+17,SUN,Sunderland,0,0,0,0,0,0,0,0
+18,TOT,Tottenham Hotspur,0,0,0,0,0,0,0,0
+19,WHU,West Ham United,0,0,0,0,0,0,0,0
+20,WOL,Wolverhampton Wanderers,0,0,0,0,0,0,0,0
