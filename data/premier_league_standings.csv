@@ -1,21 +1,21 @@
 Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos ganados,Empate,Derrotas,Goles a favor,Goles en contra,Diferencia de puntos,Puntos
-1,LIV,Liverpool,1,1,0,0,4,2,2,3
-2,ARS,Arsenal,0,0,0,0,0,0,0,0
-3,AVL,Aston Villa,0,0,0,0,0,0,0,0
-4,BRN,Brentford,0,0,0,0,0,0,0,0
-5,BHA,Brighton & Hove Albion,0,0,0,0,0,0,0,0
-6,BRN,Burnley,0,0,0,0,0,0,0,0
-7,CHE,Chelsea,0,0,0,0,0,0,0,0
-8,CRY,Crystal Palace,0,0,0,0,0,0,0,0
-9,EVE,Everton,0,0,0,0,0,0,0,0
-10,FUL,Fulham,0,0,0,0,0,0,0,0
-11,LEE,Leeds United,0,0,0,0,0,0,0,0
-12,MCI,Manchester City,0,0,0,0,0,0,0,0
-13,MUN,Manchester United,0,0,0,0,0,0,0,0
-14,NEW,Newcastle United,0,0,0,0,0,0,0,0
-15,FOR,Nottingham Forest,0,0,0,0,0,0,0,0
-16,SUN,Sunderland,0,0,0,0,0,0,0,0
-17,TOT,Tottenham Hotspur,0,0,0,0,0,0,0,0
-18,WHU,West Ham United,0,0,0,0,0,0,0,0
-19,WOL,Wolverhampton Wanderers,0,0,0,0,0,0,0,0
-20,BOU,AFC Bournemouth,1,0,0,1,2,4,2,0
+1,MCI,Manchester City,1,1,0,0,4,0,4,3
+2,SUN,Sunderland,1,1,0,0,3,0,3,3
+3,TOT,Tottenham Hotspur,1,1,0,0,3,0,3,3
+4,LIV,Liverpool,1,1,0,0,4,2,2,3
+5,BHA,Brighton & Hove Albion,1,0,1,0,1,1,0,1
+6,FUL,Fulham,1,0,1,0,1,1,0,1
+7,AVL,Aston Villa,1,0,1,0,0,0,0,1
+8,NEW,Newcastle United,1,0,1,0,0,0,0,1
+9,ARS,Arsenal,0,0,0,0,0,0,0,0
+10,BRN,Brentford,0,0,0,0,0,0,0,0
+11,CHE,Chelsea,0,0,0,0,0,0,0,0
+12,CRY,Crystal Palace,0,0,0,0,0,0,0,0
+13,EVE,Everton,0,0,0,0,0,0,0,0
+14,LEE,Leeds United,0,0,0,0,0,0,0,0
+15,MUN,Manchester United,0,0,0,0,0,0,0,0
+16,FOR,Nottingham Forest,0,0,0,0,0,0,0,0
+17,BOU,AFC Bournemouth,1,0,0,1,2,4,2,0
+18,BRN,Burnley,1,0,0,1,0,3,3,0
+19,WHU,West Ham United,1,0,0,1,0,3,3,0
+20,WOL,Wolverhampton Wanderers,1,0,0,1,0,4,4,0
