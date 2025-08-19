@@ -5,14 +5,14 @@ Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos g
 4,LIV,Liverpool,1,1,0,0,4,2,2,3
 5,FOR,Nottingham Forest,1,1,0,0,3,1,2,3
 6,ARS,Arsenal,1,1,0,0,1,0,1,3
-7,BHA,Brighton & Hove Albion,1,0,1,0,1,1,0,1
-8,FUL,Fulham,1,0,1,0,1,1,0,1
-9,AVL,Aston Villa,1,0,1,0,0,0,0,1
-10,CHE,Chelsea,1,0,1,0,0,0,0,1
-11,CRY,Crystal Palace,1,0,1,0,0,0,0,1
-12,NEW,Newcastle United,1,0,1,0,0,0,0,1
-13,EVE,Everton,0,0,0,0,0,0,0,0
-14,LEE,Leeds United,0,0,0,0,0,0,0,0
+7,LEE,Leeds United,1,1,0,0,1,0,1,3
+8,BHA,Brighton & Hove Albion,1,0,1,0,1,1,0,1
+9,FUL,Fulham,1,0,1,0,1,1,0,1
+10,AVL,Aston Villa,1,0,1,0,0,0,0,1
+11,CHE,Chelsea,1,0,1,0,0,0,0,1
+12,CRY,Crystal Palace,1,0,1,0,0,0,0,1
+13,NEW,Newcastle United,1,0,1,0,0,0,0,1
+14,EVE,Everton,1,0,0,1,0,1,1,0
 15,MUN,Manchester United,1,0,0,1,0,1,1,0
 16,BOU,AFC Bournemouth,1,0,0,1,2,4,2,0
 17,BRN,Brentford,1,0,0,1,1,3,2,0
