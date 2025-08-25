@@ -2,20 +2,20 @@ Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos g
 1,ARS,Arsenal,2,2,0,0,6,0,6,6
 2,TOT,Tottenham Hotspur,2,2,0,0,5,0,5,6
 3,CHE,Chelsea,2,1,1,0,5,1,4,4
-4,LIV,Liverpool,1,1,0,0,4,2,2,3
-5,MCI,Manchester City,2,1,0,1,4,2,2,3
-6,FOR,Nottingham Forest,1,1,0,0,3,1,2,3
+4,FOR,Nottingham Forest,2,1,1,0,4,2,2,4
+5,LIV,Liverpool,1,1,0,0,4,2,2,3
+6,MCI,Manchester City,2,1,0,1,4,2,2,3
 7,SUN,Sunderland,2,1,0,1,3,2,1,3
-8,BOU,AFC Bournemouth,2,1,0,1,3,4,1,3
-9,BRN,Brentford,2,1,0,1,2,3,1,3
-10,BRN,Burnley,2,1,0,1,2,3,1,3
-11,LEE,Leeds United,2,1,0,1,1,5,4,3
-12,BHA,Brighton & Hove Albion,1,0,1,0,1,1,0,1
-13,FUL,Fulham,1,0,1,0,1,1,0,1
-14,CRY,Crystal Palace,1,0,1,0,0,0,0,1
+8,EVE,Everton,2,1,0,1,2,1,1,3
+9,BOU,AFC Bournemouth,2,1,0,1,3,4,1,3
+10,BRN,Brentford,2,1,0,1,2,3,1,3
+11,BRN,Burnley,2,1,0,1,2,3,1,3
+12,LEE,Leeds United,2,1,0,1,1,5,4,3
+13,FUL,Fulham,2,0,2,0,2,2,0,2
+14,CRY,Crystal Palace,2,0,2,0,1,1,0,2
 15,NEW,Newcastle United,1,0,1,0,0,0,0,1
-16,AVL,Aston Villa,2,0,1,1,0,1,1,1
-17,EVE,Everton,1,0,0,1,0,1,1,0
-18,MUN,Manchester United,1,0,0,1,0,1,1,0
+16,MUN,Manchester United,2,0,1,1,1,2,1,1
+17,AVL,Aston Villa,2,0,1,1,0,1,1,1
+18,BHA,Brighton & Hove Albion,2,0,1,1,1,3,2,1
 19,WOL,Wolverhampton Wanderers,2,0,0,2,0,5,5,0
 20,WHU,West Ham United,2,0,0,2,1,8,7,0
