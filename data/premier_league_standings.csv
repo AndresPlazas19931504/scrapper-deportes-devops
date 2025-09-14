@@ -1,21 +1,21 @@
 Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos ganados,Empate,Derrotas,Goles a favor,Goles en contra,Diferencia de puntos,Puntos
-1,LIV,Liverpool,3,3,0,0,8,4,4,9
-2,CHE,Chelsea,3,2,1,0,7,1,6,7
-3,ARS,Arsenal,3,2,0,1,6,1,5,6
-4,TOT,Tottenham Hotspur,3,2,0,1,5,1,4,6
-5,EVE,Everton,3,2,0,1,5,3,2,6
-6,SUN,Sunderland,3,2,0,1,5,3,2,6
-7,BOU,AFC Bournemouth,3,2,0,1,4,4,0,6
-8,CRY,Crystal Palace,3,1,2,0,4,1,3,5
-9,MUN,Manchester United,3,1,1,1,4,4,0,4
-10,FOR,Nottingham Forest,3,1,1,1,4,5,1,4
-11,BHA,Brighton & Hove Albion,3,1,1,1,3,4,1,4
-12,LEE,Leeds United,3,1,1,1,1,5,4,4
-13,MCI,Manchester City,3,1,0,2,5,4,1,3
-14,BRN,Burnley,3,1,0,2,4,6,2,3
-15,BRN,Brentford,3,1,0,2,3,5,2,3
-16,WHU,West Ham United,3,1,0,2,4,8,4,3
-17,NEW,Newcastle United,3,0,2,1,2,3,1,2
-18,FUL,Fulham,3,0,2,1,2,4,2,2
-19,AVL,Aston Villa,3,0,1,2,0,4,4,1
-20,WOL,Wolverhampton Wanderers,3,0,0,3,2,8,6,0
+1,ARS,Arsenal,4,3,0,1,9,1,8,9
+2,TOT,Tottenham Hotspur,4,3,0,1,8,1,7,9
+3,LIV,Liverpool,3,3,0,0,8,4,4,9
+4,BOU,AFC Bournemouth,4,3,0,1,6,5,1,9
+5,CHE,Chelsea,4,2,2,0,9,3,6,8
+6,EVE,Everton,4,2,1,1,5,3,2,7
+7,SUN,Sunderland,4,2,1,1,5,3,2,7
+8,CRY,Crystal Palace,4,1,3,0,4,1,3,6
+9,NEW,Newcastle United,4,1,2,1,3,3,0,5
+10,FUL,Fulham,4,1,2,1,3,4,1,5
+11,MUN,Manchester United,3,1,1,1,4,4,0,4
+12,BRN,Brentford,4,1,1,2,5,7,2,4
+13,BHA,Brighton & Hove Albion,4,1,1,2,4,6,2,4
+14,FOR,Nottingham Forest,4,1,1,2,4,8,4,4
+15,LEE,Leeds United,4,1,1,2,1,6,5,4
+16,MCI,Manchester City,3,1,0,2,5,4,1,3
+17,BRN,Burnley,3,1,0,2,4,6,2,3
+18,WHU,West Ham United,4,1,0,3,4,11,7,3
+19,AVL,Aston Villa,4,0,2,2,0,4,4,2
+20,WOL,Wolverhampton Wanderers,4,0,0,4,2,9,7,0
