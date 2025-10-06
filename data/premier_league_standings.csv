@@ -3,19 +3,19 @@ Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos g
 2,LIV,Liverpool,7,5,0,2,13,9,4,15
 3,TOT,Tottenham Hotspur,7,4,2,1,13,5,8,14
 4,BOU,AFC Bournemouth,7,4,2,1,11,8,3,14
-5,CRY,Crystal Palace,6,3,3,0,8,3,5,12
-6,CHE,Chelsea,7,3,2,2,13,9,4,11
-7,SUN,Sunderland,7,3,2,2,7,6,1,11
-8,MCI,Manchester City,6,3,1,2,14,6,8,10
-9,MUN,Manchester United,7,3,1,3,9,11,2,10
-10,EVE,Everton,6,2,2,2,7,6,1,8
-11,BHA,Brighton & Hove Albion,6,2,2,2,9,9,0,8
-12,FUL,Fulham,7,2,2,3,8,11,3,8
-13,LEE,Leeds United,7,2,2,3,7,11,4,8
-14,BRN,Brentford,6,2,1,3,9,11,2,7
-15,NEW,Newcastle United,6,1,3,2,4,5,1,6
-16,AVL,Aston Villa,6,1,3,2,4,6,2,6
-17,FOR,Nottingham Forest,6,1,2,3,5,10,5,5
-18,BRN,Burnley,6,1,1,4,6,13,7,4
+5,MCI,Manchester City,7,4,1,2,15,6,9,13
+6,CRY,Crystal Palace,7,3,3,1,9,5,4,12
+7,CHE,Chelsea,7,3,2,2,13,9,4,11
+8,EVE,Everton,7,3,2,2,9,7,2,11
+9,SUN,Sunderland,7,3,2,2,7,6,1,11
+10,MUN,Manchester United,7,3,1,3,9,11,2,10
+11,NEW,Newcastle United,7,2,3,2,6,5,1,9
+12,BHA,Brighton & Hove Albion,7,2,3,2,10,10,0,9
+13,AVL,Aston Villa,7,2,3,2,6,7,1,9
+14,FUL,Fulham,7,2,2,3,8,11,3,8
+15,LEE,Leeds United,7,2,2,3,7,11,4,8
+16,BRN,Brentford,7,2,1,4,9,12,3,7
+17,FOR,Nottingham Forest,7,1,2,4,5,12,7,5
+18,BRN,Burnley,7,1,1,5,7,15,8,4
 19,WHU,West Ham United,7,1,1,5,6,16,10,4
-20,WOL,Wolverhampton Wanderers,6,0,1,5,4,13,9,1
+20,WOL,Wolverhampton Wanderers,7,0,2,5,5,14,9,2
