@@ -1,17 +1,17 @@
 Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos ganados,Empate,Derrotas,Goles a favor,Goles en contra,Diferencia de puntos,Puntos
 1,ARS,Arsenal,8,6,1,1,15,3,12,19
 2,MCI,Manchester City,8,5,1,2,17,6,11,16
-3,LIV,Liverpool,7,5,0,2,13,9,4,15
-4,BOU,AFC Bournemouth,8,4,3,1,14,11,3,15
-5,TOT,Tottenham Hotspur,7,4,2,1,13,5,8,14
-6,CHE,Chelsea,8,4,2,2,16,9,7,14
+3,BOU,AFC Bournemouth,8,4,3,1,14,11,3,15
+4,LIV,Liverpool,8,5,0,3,14,11,3,15
+5,CHE,Chelsea,8,4,2,2,16,9,7,14
+6,TOT,Tottenham Hotspur,8,4,2,2,14,7,7,14
 7,SUN,Sunderland,8,4,2,2,9,6,3,14
 8,CRY,Crystal Palace,8,3,4,1,12,8,4,13
-9,BHA,Brighton & Hove Albion,8,3,3,2,12,11,1,12
-10,EVE,Everton,8,3,2,3,9,9,0,11
-11,MUN,Manchester United,7,3,1,3,9,11,2,10
-12,NEW,Newcastle United,8,2,3,3,7,7,0,9
-13,AVL,Aston Villa,7,2,3,2,6,7,1,9
+9,MUN,Manchester United,8,4,1,3,11,12,1,13
+10,BHA,Brighton & Hove Albion,8,3,3,2,12,11,1,12
+11,AVL,Aston Villa,8,3,3,2,8,8,0,12
+12,EVE,Everton,8,3,2,3,9,9,0,11
+13,NEW,Newcastle United,8,2,3,3,7,7,0,9
 14,FUL,Fulham,8,2,2,4,8,12,4,8
 15,LEE,Leeds United,8,2,2,4,7,13,6,8
 16,BRN,Brentford,7,2,1,4,9,12,3,7
