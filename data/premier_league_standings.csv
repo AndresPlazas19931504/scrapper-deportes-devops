@@ -8,10 +8,10 @@ Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos g
 7,SUN,Sunderland,12,5,4,3,14,11,3,19
 8,BOU,AFC Bournemouth,12,5,4,3,19,20,1,19
 9,TOT,Tottenham Hotspur,12,5,3,4,20,14,6,18
-10,MUN,Manchester United,11,5,3,3,19,18,1,18
-11,LIV,Liverpool,12,6,0,6,18,20,2,18
-12,BRN,Brentford,12,5,1,6,18,19,1,16
-13,EVE,Everton,11,4,3,4,12,13,1,15
+10,MUN,Manchester United,12,5,3,4,19,19,0,18
+11,EVE,Everton,12,5,3,4,13,13,0,18
+12,LIV,Liverpool,12,6,0,6,18,20,2,18
+13,BRN,Brentford,12,5,1,6,18,19,1,16
 14,NEW,Newcastle United,12,4,3,5,13,15,2,15
 15,FUL,Fulham,12,4,2,6,13,16,3,14
 16,FOR,Nottingham Forest,12,3,3,6,13,20,7,12
