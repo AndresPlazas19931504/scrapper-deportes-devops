@@ -1,21 +1,21 @@
 Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos ganados,Empate,Derrotas,Goles a favor,Goles en contra,Diferencia de puntos,Puntos
-1,ARS,Arsenal,12,9,2,1,24,6,18,29
+1,ARS,Arsenal,13,9,3,1,25,7,18,30
 2,MCI,Manchester City,13,8,1,4,27,12,15,25
-3,CHE,Chelsea,12,7,2,3,23,11,12,23
-4,SUN,Sunderland,13,6,4,3,17,13,4,22
-5,AVL,Aston Villa,12,6,3,3,15,11,4,21
-6,CRY,Crystal Palace,12,5,5,2,16,9,7,20
-7,BHA,Brighton & Hove Albion,12,5,4,3,19,16,3,19
-8,BRN,Brentford,13,6,1,6,21,20,1,19
-9,BOU,AFC Bournemouth,13,5,4,4,21,23,2,19
-10,TOT,Tottenham Hotspur,13,5,3,5,21,16,5,18
-11,NEW,Newcastle United,13,5,3,5,17,16,1,18
-12,MUN,Manchester United,12,5,3,4,19,19,0,18
-13,LIV,Liverpool,12,6,0,6,18,20,2,18
+3,CHE,Chelsea,13,7,3,3,24,12,12,24
+4,AVL,Aston Villa,13,7,3,3,16,11,5,24
+5,BHA,Brighton & Hove Albion,13,6,4,3,21,16,5,22
+6,SUN,Sunderland,13,6,4,3,17,13,4,22
+7,MUN,Manchester United,13,6,3,4,21,20,1,21
+8,LIV,Liverpool,13,7,0,6,20,20,0,21
+9,CRY,Crystal Palace,13,5,5,3,17,11,6,20
+10,BRN,Brentford,13,6,1,6,21,20,1,19
+11,BOU,AFC Bournemouth,13,5,4,4,21,23,2,19
+12,TOT,Tottenham Hotspur,13,5,3,5,21,16,5,18
+13,NEW,Newcastle United,13,5,3,5,17,16,1,18
 14,EVE,Everton,13,5,3,5,14,17,3,18
 15,FUL,Fulham,13,5,2,6,15,17,2,17
-16,FOR,Nottingham Forest,12,3,3,6,13,20,7,12
-17,WHU,West Ham United,12,3,2,7,15,25,10,11
+16,FOR,Nottingham Forest,13,3,3,7,13,22,9,12
+17,WHU,West Ham United,13,3,2,8,15,27,12,11
 18,LEE,Leeds United,13,3,2,8,13,25,12,11
 19,BRN,Burnley,13,3,1,9,15,27,12,10
-20,WOL,Wolverhampton Wanderers,12,0,2,10,7,27,20,2
+20,WOL,Wolverhampton Wanderers,13,0,2,11,7,28,21,2
