@@ -6,8 +6,8 @@ Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos g
 5,CRY,Crystal Palace,14,6,5,3,18,11,7,23
 6,SUN,Sunderland,14,6,5,3,18,14,4,23
 7,BHA,Brighton & Hove Albion,14,6,4,4,24,20,4,22
-8,LIV,Liverpool,14,7,1,6,21,21,0,22
-9,MUN,Manchester United,13,6,3,4,21,20,1,21
+8,MUN,Manchester United,14,6,4,4,22,21,1,22
+9,LIV,Liverpool,14,7,1,6,21,21,0,22
 10,EVE,Everton,14,6,3,5,15,17,2,21
 11,TOT,Tottenham Hotspur,14,5,4,5,23,18,5,19
 12,NEW,Newcastle United,14,5,4,5,19,18,1,19
@@ -16,6 +16,6 @@ Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos g
 15,FUL,Fulham,14,5,2,7,19,22,3,17
 16,FOR,Nottingham Forest,14,4,3,7,14,22,8,15
 17,LEE,Leeds United,14,4,2,8,16,26,10,14
-18,WHU,West Ham United,13,3,2,8,15,27,12,11
+18,WHU,West Ham United,14,3,3,8,16,28,12,12
 19,BRN,Burnley,14,3,1,10,15,28,13,10
 20,WOL,Wolverhampton Wanderers,14,0,2,12,7,29,22,2
