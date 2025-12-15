@@ -1,21 +1,21 @@
 Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos ganados,Empate,Derrotas,Goles a favor,Goles en contra,Diferencia de puntos,Puntos
 1,ARS,Arsenal,16,11,3,2,30,10,20,36
-2,MCI,Manchester City,15,10,1,4,35,16,19,31
-3,AVL,Aston Villa,15,9,3,3,22,15,7,30
+2,MCI,Manchester City,16,11,1,4,38,16,22,34
+3,AVL,Aston Villa,16,10,3,3,25,17,8,33
 4,CHE,Chelsea,16,8,4,4,27,15,12,28
-5,CRY,Crystal Palace,15,7,5,3,20,12,8,26
+5,CRY,Crystal Palace,16,7,5,4,20,15,5,26
 6,LIV,Liverpool,16,8,2,6,26,24,2,26
-7,MUN,Manchester United,15,7,4,4,26,22,4,25
-8,EVE,Everton,16,7,3,6,18,19,1,24
-9,BHA,Brighton & Hove Albion,16,6,5,5,25,23,2,23
-10,SUN,Sunderland,15,6,5,4,18,17,1,23
-11,TOT,Tottenham Hotspur,15,6,4,5,25,18,7,22
-12,NEW,Newcastle United,15,6,4,5,21,19,2,22
+7,SUN,Sunderland,16,7,5,4,19,17,2,26
+8,MUN,Manchester United,15,7,4,4,26,22,4,25
+9,EVE,Everton,16,7,3,6,18,19,1,24
+10,BHA,Brighton & Hove Albion,16,6,5,5,25,23,2,23
+11,TOT,Tottenham Hotspur,16,6,4,6,25,21,4,22
+12,NEW,Newcastle United,16,6,4,6,21,20,1,22
 13,FUL,Fulham,16,6,2,8,23,26,3,20
-14,BOU,AFC Bournemouth,15,5,5,5,21,24,3,20
-15,BRN,Brentford,15,6,1,8,21,24,3,19
-16,LEE,Leeds United,15,4,3,8,19,29,10,15
-17,FOR,Nottingham Forest,15,4,3,8,14,25,11,15
-18,WHU,West Ham United,15,3,4,8,17,29,12,13
+14,BRN,Brentford,16,6,2,8,22,25,3,20
+15,BOU,AFC Bournemouth,15,5,5,5,21,24,3,20
+16,FOR,Nottingham Forest,16,5,3,8,17,25,8,18
+17,LEE,Leeds United,16,4,4,8,20,30,10,16
+18,WHU,West Ham United,16,3,4,9,19,32,13,13
 19,BRN,Burnley,16,3,1,12,18,33,15,10
 20,WOL,Wolverhampton Wanderers,16,0,2,14,9,35,26,2
