@@ -1,21 +1,21 @@
 Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos ganados,Empate,Derrotas,Goles a favor,Goles en contra,Diferencia de puntos,Puntos
 1,ARS,Arsenal,20,15,3,2,40,14,26,48
-2,MCI,Manchester City,20,13,3,4,44,18,26,42
-3,AVL,Aston Villa,20,13,3,4,33,24,9,42
+2,MCI,Manchester City,21,13,4,4,45,19,26,43
+3,AVL,Aston Villa,21,13,4,4,33,24,9,43
 4,LIV,Liverpool,20,10,4,6,32,28,4,34
-5,CHE,Chelsea,20,8,7,5,33,22,11,31
-6,MUN,Manchester United,20,8,7,5,34,30,4,31
-7,BRN,Brentford,20,9,3,8,32,28,4,30
-8,SUN,Sunderland,20,7,9,4,21,19,2,30
-9,NEW,Newcastle United,20,8,5,7,28,24,4,29
-10,BHA,Brighton & Hove Albion,20,7,7,6,30,27,3,28
-11,FUL,Fulham,20,8,4,8,28,29,1,28
-12,EVE,Everton,20,8,4,8,22,24,2,28
-13,TOT,Tottenham Hotspur,20,7,6,7,28,24,4,27
-14,CRY,Crystal Palace,20,7,6,7,22,23,1,27
-15,BOU,AFC Bournemouth,20,5,8,7,31,38,7,23
-16,LEE,Leeds United,20,5,7,8,26,33,7,22
+5,BRN,Brentford,21,10,3,8,35,28,7,33
+6,NEW,Newcastle United,21,9,5,7,32,27,5,32
+7,MUN,Manchester United,21,8,8,5,36,32,4,32
+8,CHE,Chelsea,21,8,7,6,34,24,10,31
+9,FUL,Fulham,21,9,4,8,30,30,0,31
+10,SUN,Sunderland,21,7,9,5,21,22,1,30
+11,BHA,Brighton & Hove Albion,21,7,8,6,31,28,3,29
+12,EVE,Everton,21,8,5,8,23,25,2,29
+13,CRY,Crystal Palace,21,7,7,7,22,23,1,28
+14,TOT,Tottenham Hotspur,21,7,6,8,30,27,3,27
+15,BOU,AFC Bournemouth,21,6,8,7,34,40,6,26
+16,LEE,Leeds United,21,5,7,9,29,37,8,22
 17,FOR,Nottingham Forest,21,6,3,12,21,34,13,21
 18,WHU,West Ham United,21,3,5,13,22,43,21,14
-19,BRN,Burnley,20,3,3,14,20,39,19,12
-20,WOL,Wolverhampton Wanderers,20,1,3,16,14,40,26,6
+19,BRN,Burnley,21,3,4,14,22,41,19,13
+20,WOL,Wolverhampton Wanderers,21,1,4,16,15,41,26,7
