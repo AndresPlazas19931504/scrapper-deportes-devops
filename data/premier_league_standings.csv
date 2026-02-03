@@ -6,10 +6,10 @@ Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos g
 5,CHE,Chelsea,24,11,7,6,42,27,15,40
 6,LIV,Liverpool,24,11,6,7,39,33,6,39
 7,BRN,Brentford,24,11,3,10,36,32,4,36
-8,FUL,Fulham,24,10,4,10,34,35,1,34
-9,EVE,Everton,24,9,7,8,26,27,1,34
-10,NEW,Newcastle United,24,9,6,9,33,33,0,33
-11,SUN,Sunderland,23,8,9,6,24,26,2,33
+8,SUN,Sunderland,24,9,9,6,27,26,1,36
+9,FUL,Fulham,24,10,4,10,34,35,1,34
+10,EVE,Everton,24,9,7,8,26,27,1,34
+11,NEW,Newcastle United,24,9,6,9,33,33,0,33
 12,BOU,AFC Bournemouth,24,8,9,7,40,43,3,33
 13,BHA,Brighton & Hove Albion,24,7,10,7,34,32,2,31
 14,TOT,Tottenham Hotspur,24,7,8,9,35,33,2,29
@@ -17,5 +17,5 @@ Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos g
 16,LEE,Leeds United,24,6,8,10,31,42,11,26
 17,FOR,Nottingham Forest,24,7,5,12,24,35,11,26
 18,WHU,West Ham United,24,5,5,14,29,48,19,20
-19,BRN,Burnley,23,3,6,14,25,44,19,15
+19,BRN,Burnley,24,3,6,15,25,47,22,15
 20,WOL,Wolverhampton Wanderers,24,1,5,18,15,45,30,8
