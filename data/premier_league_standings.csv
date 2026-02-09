@@ -1,19 +1,19 @@
 Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos ganados,Empate,Derrotas,Goles a favor,Goles en contra,Diferencia de puntos,Puntos
 1,ARS,Arsenal,25,17,5,3,49,17,32,56
-2,MCI,Manchester City,24,14,5,5,49,23,26,47
+2,MCI,Manchester City,25,15,5,5,51,24,27,50
 3,AVL,Aston Villa,25,14,5,6,36,27,9,47
 4,MUN,Manchester United,25,12,8,5,46,36,10,44
 5,CHE,Chelsea,25,12,7,6,45,28,17,43
-6,LIV,Liverpool,24,11,6,7,39,33,6,39
+6,LIV,Liverpool,25,11,6,8,40,35,5,39
 7,BRN,Brentford,25,12,3,10,39,34,5,39
 8,EVE,Everton,25,10,7,8,28,28,0,37
 9,SUN,Sunderland,25,9,9,7,27,29,2,36
 10,FUL,Fulham,25,10,4,11,35,37,2,34
 11,BOU,AFC Bournemouth,25,8,10,7,41,44,3,34
 12,NEW,Newcastle United,25,9,6,10,35,36,1,33
-13,BHA,Brighton & Hove Albion,24,7,10,7,34,32,2,31
-14,TOT,Tottenham Hotspur,25,7,8,10,35,35,0,29
-15,CRY,Crystal Palace,24,7,8,9,25,29,4,29
+13,CRY,Crystal Palace,25,8,8,9,26,29,3,32
+14,BHA,Brighton & Hove Albion,25,7,10,8,34,33,1,31
+15,TOT,Tottenham Hotspur,25,7,8,10,35,35,0,29
 16,LEE,Leeds United,25,7,8,10,34,43,9,29
 17,FOR,Nottingham Forest,25,7,5,13,25,38,13,26
 18,WHU,West Ham United,25,6,5,14,31,48,17,23
