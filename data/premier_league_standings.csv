@@ -1,21 +1,21 @@
 Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos ganados,Empate,Derrotas,Goles a favor,Goles en contra,Diferencia de puntos,Puntos
 1,ARS,Arsenal,25,17,5,3,49,17,32,56
-2,MCI,Manchester City,25,15,5,5,51,24,27,50
-3,AVL,Aston Villa,25,14,5,6,36,27,9,47
+2,MCI,Manchester City,26,16,5,5,54,24,30,53
+3,AVL,Aston Villa,26,15,5,6,37,27,10,50
 4,MUN,Manchester United,26,12,9,5,47,37,10,45
 5,CHE,Chelsea,26,12,8,6,47,30,17,44
-6,LIV,Liverpool,25,11,6,8,40,35,5,39
+6,LIV,Liverpool,26,12,6,8,41,35,6,42
 7,BRN,Brentford,25,12,3,10,39,34,5,39
 8,EVE,Everton,26,10,7,9,29,30,1,37
 9,BOU,AFC Bournemouth,26,9,10,7,43,45,2,37
 10,NEW,Newcastle United,26,10,6,10,37,37,0,36
-11,SUN,Sunderland,25,9,9,7,27,29,2,36
-12,FUL,Fulham,25,10,4,11,35,37,2,34
-13,CRY,Crystal Palace,25,8,8,9,26,29,3,32
-14,BHA,Brighton & Hove Albion,25,7,10,8,34,33,1,31
+11,SUN,Sunderland,26,9,9,8,27,30,3,36
+12,FUL,Fulham,26,10,4,12,35,40,5,34
+13,CRY,Crystal Palace,26,8,8,10,28,32,4,32
+14,BHA,Brighton & Hove Albion,26,7,10,9,34,34,0,31
 15,LEE,Leeds United,26,7,9,10,36,45,9,30
 16,TOT,Tottenham Hotspur,26,7,8,11,36,37,1,29
-17,FOR,Nottingham Forest,25,7,5,13,25,38,13,26
+17,FOR,Nottingham Forest,26,7,6,13,25,38,13,27
 18,WHU,West Ham United,26,6,6,14,32,49,17,24
-19,BRN,Burnley,25,3,6,16,25,49,24,15
-20,WOL,Wolverhampton Wanderers,25,1,5,19,16,48,32,8
+19,BRN,Burnley,26,4,6,16,28,51,23,18
+20,WOL,Wolverhampton Wanderers,26,1,6,19,16,48,32,9
