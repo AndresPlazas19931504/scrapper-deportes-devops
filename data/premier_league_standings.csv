@@ -1,7 +1,7 @@
 Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos ganados,Empate,Derrotas,Goles a favor,Goles en contra,Diferencia de puntos,Puntos
 1,ARS,Arsenal,28,18,7,3,56,21,35,61
 2,MCI,Manchester City,27,17,5,5,56,25,31,56
-3,AVL,Aston Villa,27,15,6,6,38,28,10,51
+3,AVL,Aston Villa,28,15,6,7,38,30,8,51
 4,MUN,Manchester United,27,13,9,5,48,37,11,48
 5,CHE,Chelsea,27,12,9,6,48,31,17,45
 6,LIV,Liverpool,27,13,6,8,42,35,7,45
@@ -18,4 +18,4 @@ Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos g
 17,FOR,Nottingham Forest,27,7,6,14,25,39,14,27
 18,WHU,West Ham United,27,6,7,14,32,49,17,25
 19,BRN,Burnley,27,4,7,16,29,52,23,19
-20,WOL,Wolverhampton Wanderers,28,1,7,20,18,51,33,10
+20,WOL,Wolverhampton Wanderers,29,2,7,20,20,51,31,13
