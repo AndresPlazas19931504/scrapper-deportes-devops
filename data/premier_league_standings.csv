@@ -1,21 +1,21 @@
 Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos ganados,Empate,Derrotas,Goles a favor,Goles en contra,Diferencia de puntos,Puntos
-1,ARS,Arsenal,29,19,7,3,58,22,36,64
-2,MCI,Manchester City,28,18,5,5,57,25,32,59
-3,MUN,Manchester United,28,14,9,5,50,38,12,51
-4,AVL,Aston Villa,28,15,6,7,38,30,8,51
-5,LIV,Liverpool,29,14,6,9,48,39,9,48
-6,CHE,Chelsea,28,12,9,7,49,33,16,45
+1,ARS,Arsenal,30,20,7,3,59,22,37,67
+2,MCI,Manchester City,29,18,6,5,59,27,32,60
+3,MUN,Manchester United,29,14,9,6,51,40,11,51
+4,AVL,Aston Villa,29,15,6,8,39,34,5,51
+5,CHE,Chelsea,29,13,9,7,53,34,19,48
+6,LIV,Liverpool,29,14,6,9,48,39,9,48
 7,BRN,Brentford,29,13,5,11,44,40,4,44
 8,EVE,Everton,29,12,7,10,34,33,1,43
 9,BOU,AFC Bournemouth,29,9,13,7,44,46,2,40
-10,FUL,Fulham,28,12,4,12,40,42,2,40
+10,FUL,Fulham,29,12,4,13,40,43,3,40
 11,SUN,Sunderland,29,10,10,9,30,34,4,40
-12,BHA,Brighton & Hove Albion,28,9,10,9,38,35,3,37
-13,NEW,Newcastle United,28,10,6,12,40,42,2,36
+12,NEW,Newcastle United,29,11,6,12,42,43,1,39
+13,BHA,Brighton & Hove Albion,29,9,10,10,38,36,2,37
 14,CRY,Crystal Palace,28,9,8,11,30,34,4,35
 15,LEE,Leeds United,29,7,10,12,37,48,11,31
 16,TOT,Tottenham Hotspur,28,7,8,13,38,43,5,29
-17,FOR,Nottingham Forest,28,7,6,15,26,41,15,27
-18,WHU,West Ham United,28,6,7,15,34,54,20,25
+17,FOR,Nottingham Forest,29,7,7,15,28,43,15,28
+18,WHU,West Ham United,29,7,7,15,35,54,19,28
 19,BRN,Burnley,29,4,7,18,32,58,26,19
 20,WOL,Wolverhampton Wanderers,30,3,7,20,22,52,30,16
