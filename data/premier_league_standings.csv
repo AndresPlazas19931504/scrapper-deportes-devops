@@ -2,20 +2,20 @@ Posicion,Abreviatura,Equipo,Número de partidos jugados,El número de partidos g
 1,ARS,Arsenal,31,21,7,3,61,22,39,70
 2,MCI,Manchester City,30,18,7,5,60,28,32,61
 3,MUN,Manchester United,31,15,10,6,56,43,13,55
-4,AVL,Aston Villa,30,15,6,9,40,37,3,51
+4,AVL,Aston Villa,31,16,6,9,42,37,5,54
 5,LIV,Liverpool,31,14,7,10,50,42,8,49
 6,CHE,Chelsea,31,13,9,9,53,38,15,48
 7,BRN,Brentford,31,13,7,11,46,42,4,46
 8,EVE,Everton,31,13,7,11,37,35,2,46
 9,FUL,Fulham,31,13,5,13,43,44,1,44
 10,BHA,Brighton & Hove Albion,31,11,10,10,41,37,4,43
-11,NEW,Newcastle United,30,12,6,12,43,43,0,42
-12,BOU,AFC Bournemouth,31,9,15,7,46,48,2,42
-13,SUN,Sunderland,30,10,10,10,30,35,5,40
+11,SUN,Sunderland,31,11,10,10,32,36,4,43
+12,NEW,Newcastle United,31,12,6,13,44,45,1,42
+13,BOU,AFC Bournemouth,31,9,15,7,46,48,2,42
 14,CRY,Crystal Palace,30,10,9,11,33,35,2,39
 15,LEE,Leeds United,31,7,12,12,37,48,11,33
-16,TOT,Tottenham Hotspur,30,7,9,14,40,47,7,30
-17,FOR,Nottingham Forest,30,7,8,15,28,43,15,29
-18,WHU,West Ham United,30,7,8,15,36,55,19,29
+16,FOR,Nottingham Forest,31,8,8,15,31,43,12,32
+17,TOT,Tottenham Hotspur,31,7,9,15,40,50,10,30
+18,WHU,West Ham United,31,7,8,16,36,57,21,29
 19,BRN,Burnley,31,4,8,19,33,61,28,20
 20,WOL,Wolverhampton Wanderers,31,3,8,20,24,54,30,17
